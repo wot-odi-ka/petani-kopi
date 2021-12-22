@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "469081063959",
+    "project_id": "petani-kopi",
+    "storage_bucket": "petani-kopi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:469081063959:android:c0479023fd9d3720579252",
+        "android_client_info": {
+          "package_name": "com.exampel.petani_kopi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "469081063959-bmnm92lsh4bresg7qjtagg8vgtv5bgr1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYyvWUow8THgwcCeUN5KtKOHdA22jc8Gk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "469081063959-bmnm92lsh4bresg7qjtagg8vgtv5bgr1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
