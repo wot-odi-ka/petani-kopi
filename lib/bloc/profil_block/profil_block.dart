@@ -53,10 +53,13 @@ class ProfilBlock extends Bloc<ProfilEvent, ProfilState> {
     Users data = users;
     data.userName = result.userName ?? users.userName;
     data.userAlamat = result.userAlamat ?? users.userAlamat;
+    data.userCity = result.userCity ?? users.userCity;
     data.userImage = url ?? users.userImage;
     data.userImageHash = hash ?? users.userImageHash;
     data.userMail = result.userMail ?? users.userMail;
     data.userPhone = result.userPhone ?? users.userPhone;
+    data.noRekening = result.noRekening ?? users.noRekening;
+    data.rekening = result.rekening ?? users.noRekening;
     await LogQuery.updateUserData(data);
     users = await LogQuery.getUsersById(users.userId!);
     await DB.saveUser(users);

@@ -6,26 +6,34 @@ class Users {
   String? userMail;
   String? userImage;
   String? userImageHash;
-  String? userProfile;
   String? password;
-  bool? userIsSeller;
   String? userPhone;
   String? userAlamat;
+  String? userCity;
+  String? noRekening;
+  String? rekening;
+  bool? userIsSeller;
 
+  //helper
   File? file;
 
-  Users(
-      {this.userId,
-      this.userName,
-      this.userMail,
-      this.userImage,
-      this.userImageHash,
-      this.userProfile,
-      this.password,
-      this.userIsSeller,
-      this.userPhone,
-      this.file,
-      this.userAlamat});
+  Users({
+    this.userId,
+    this.userName,
+    this.userMail,
+    this.userImage,
+    this.userImageHash,
+    this.password,
+    this.userPhone,
+    this.userAlamat,
+    this.userCity,
+    this.noRekening,
+    this.rekening,
+    this.userIsSeller,
+
+    //helper
+    this.file,
+  });
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
@@ -37,6 +45,9 @@ class Users {
     map["userIsSeller"] = userIsSeller;
     map["userPhone"] = userPhone;
     map["userAlamat"] = userAlamat;
+    map["userCity"] = userCity;
+    map["noRekening"] = noRekening;
+    map["rekening"] = rekening;
     return map;
   }
 
@@ -46,11 +57,11 @@ class Users {
     userMail = json['userMail'];
     userImage = json['userImage'];
     userImageHash = json['userImageHash'];
-    userProfile = json['userProfile'];
-    userIsSeller = json['userIsSeller'];
     userPhone = json['userPhone'];
-    password = json['password'];
-    file = json['file'];
     userAlamat = json['userAlamat'];
+    userCity = json['userCity'];
+    noRekening = json['noRekening'];
+    rekening = json['rekening'];
+    userIsSeller = json['userIsSeller'];
   }
 }

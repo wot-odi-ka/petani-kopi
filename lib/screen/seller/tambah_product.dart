@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petani_kopi/bloc/permission_bloc/permission_bloc.dart';
@@ -13,13 +12,10 @@ import 'package:petani_kopi/bloc/permission_bloc/permission_state.dart';
 import 'package:petani_kopi/bloc/product_bloc/product_bloc.dart';
 import 'package:petani_kopi/bloc/product_bloc/product_event.dart';
 import 'package:petani_kopi/bloc/product_bloc/product_state.dart';
-import 'package:petani_kopi/common/common_detail_animation.dart';
 import 'package:petani_kopi/common/common_loading.dart';
 import 'package:petani_kopi/common/common_textfield.dart';
 import 'package:petani_kopi/common/common_upload_choice.dart';
 import 'package:petani_kopi/common/custom_gallery/gallery_utils.dart';
-import 'package:petani_kopi/helper/app_scaler.dart';
-import 'package:petani_kopi/helper/constants.dart';
 import 'package:petani_kopi/helper/page.dart';
 import 'package:petani_kopi/helper/snack_bar.dart';
 import 'package:petani_kopi/model/product.dart';
@@ -108,28 +104,28 @@ class _TambahProductBoddyState extends State<TambahProductBoddy> {
                 Center(
                   child: Stack(
                     children: [
-                      SizedBox(
-                        width: context.width() * 0.50,
-                        height: context.height() * 0.25,
-                        child: CommonDetailAnimation(
-                          detail: DetailUserImage(
-                            imageHash: product.imageHas ?? Const.emptyHash,
-                            imageUrl:
-                                product.imageUrlProduct ?? Const.emptyImage,
-                          ),
-                          child: (image != null)
-                              ? Image.file(
-                                  image!,
-                                  fit: BoxFit.cover,
-                                )
-                              : BlurHash(
-                                  hash: product.imageHas ?? Const.emptyHash,
-                                  image: product.imageUrlProduct ??
-                                      Const.emptyImage,
-                                  imageFit: BoxFit.cover,
-                                ),
-                        ),
-                      ),
+                      // SizedBox(
+                      //   width: context.width() * 0.50,
+                      //   height: context.height() * 0.25,
+                      //   child: CommonDetailAnimation(
+                      //     detail: DetailUserImage(
+                      //       imageHash: product.imageHas ?? Const.emptyHash,
+                      //       imageUrl:
+                      //           product.imageUrlProduct ?? Const.emptyImage,
+                      //     ),
+                      //     child: (image != null)
+                      //         ? Image.file(
+                      //             image!,
+                      //             fit: BoxFit.cover,
+                      //           )
+                      //         : BlurHash(
+                      //             hash: product.imageHas ?? Const.emptyHash,
+                      //             image: product.imageUrlProduct ??
+                      //                 Const.emptyImage,
+                      //             imageFit: BoxFit.cover,
+                      //           ),
+                      //   ),
+                      // ),
                       Positioned(
                         bottom: -10,
                         right: 0,
@@ -327,10 +323,10 @@ class _TambahProductBoddyState extends State<TambahProductBoddy> {
   onSubmit() {
     Product data = Product();
     data.namaProduct = nameProductCo.text;
-    data.jenisProduct = jenisProductCo.text;
+    // data.jenisProduct = jenisProductCo.text;
     data.descProduct = descProductCo.text;
     data.hargaProduct = hargaProductCo.text;
-    data.file = image;
+    // data.file = image;
     bloc(RegisterProduct(data));
   }
 }

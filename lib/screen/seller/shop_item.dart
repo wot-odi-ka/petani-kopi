@@ -3,9 +3,14 @@ import 'package:petani_kopi/animation/common_detail.dart';
 import 'package:petani_kopi/screen/dashboard/dasboard_detail.dart';
 import 'package:petani_kopi/screen/dashboard/dashboard_page.dart';
 
-class ShopItem extends StatelessWidget {
+class ShopItem extends StatefulWidget {
   const ShopItem(TabController tabController, {Key? key}) : super(key: key);
 
+  @override
+  State<ShopItem> createState() => _ShopItemState();
+}
+
+class _ShopItemState extends State<ShopItem> {
   @override
   Widget build(BuildContext context) {
     return const ShopItemBoddy();
@@ -32,6 +37,7 @@ class _ShopItemBoddyState extends State<ShopItemBoddy> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: 16),
           Expanded(
             child: GridView.builder(
               physics: const BouncingScrollPhysics(),

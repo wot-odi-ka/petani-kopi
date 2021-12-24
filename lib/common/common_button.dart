@@ -1,6 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
 import 'package:petani_kopi/theme/colors.dart';
+import 'package:petani_kopi/theme/gradient_colors.dart';
+
+class ButtonConfirmGradient extends StatelessWidget {
+  final Function()? onTap;
+  final String text;
+  final double? width;
+  final double? fontSize;
+  final List<Color> gradient;
+  final AlignmentGeometry begin;
+  const ButtonConfirmGradient({
+    Key? key,
+    required this.text,
+    this.onTap,
+    this.width,
+    this.fontSize,
+    this.gradient = GradientColors.premiumDark,
+    this.begin = Alignment.center,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width ?? context.width(),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(25),
+          ),
+          gradient: LinearGradient(
+            begin: begin,
+            end: Alignment.centerRight,
+            colors: gradient,
+          ),
+        ),
+        child: ElevatedButton(
+          onPressed: onTap,
+          style: gradientConfirm(),
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: fontSize ?? 14,
+              color: projectWhite,
+              fontWeight: FontWeight.w600,
+            ),
+            maxLines: 1,
+          ),
+        ),
+      ),
+    );
+  }
+
+  ButtonStyle gradientConfirm() {
+    return ElevatedButton.styleFrom(
+      elevation: 0,
+      primary: Colors.transparent,
+      minimumSize: const Size(88, 44),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+    );
+  }
+}
 
 class ButtonConfirm extends StatelessWidget {
   final Function()? onTap;
@@ -86,12 +146,13 @@ ButtonStyle confirmStyle(bool? isNull) {
     minimumSize: const Size(88, 44),
     padding: const EdgeInsets.symmetric(horizontal: 16.0),
     shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: isNull! ? mainColor : projectDarkGray,
-          width: 1.8,
-        ),
-        borderRadius: BorderRadius.circular(25)),
-    backgroundColor: mainColor,
+      side: BorderSide(
+        color: isNull! ? kopiMain : projectDarkGray,
+        width: 1.8,
+      ),
+      borderRadius: BorderRadius.circular(8),
+    ),
+    backgroundColor: kopiMain,
   );
 }
 

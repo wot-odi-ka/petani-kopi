@@ -33,9 +33,12 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     } else {
       var id = await Auth.signUpWithEmail(user.userMail!, user.password!);
       user.userId = id;
-      user.userAlamat = Const.aboutMe;
       user.userImage = Const.emptyImage;
       user.userImageHash = Const.emptyHash;
+      user.userAlamat = '';
+      user.noRekening = '';
+      user.rekening = '';
+      user.userCity = '';
       user.userIsSeller = false;
       await LogQuery.uploadUser(user.toMap());
     }

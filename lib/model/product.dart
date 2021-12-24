@@ -2,37 +2,33 @@ import 'dart:io';
 
 class Product {
   String? namaProduct;
-  String? jenisProduct;
   String? descProduct;
   String? hargaProduct;
-  String? imageHas;
-  String? imageUrlProduct;
-
-  String? userId;
+  List<String>? imagesUrl;
+  List<String>? imagesHash;
   String? productId;
 
-  File? file;
+  String? userId;
+  List<File>? initImage;
 
   Product({
     this.namaProduct,
-    this.jenisProduct,
     this.descProduct,
     this.hargaProduct,
-    this.imageHas,
-    this.imageUrlProduct,
-    this.file,
+    this.imagesHash,
+    this.imagesUrl,
     this.userId,
     this.productId,
+    this.initImage,
   });
 
   Map<String, dynamic> toMapProducts() {
     Map<String, dynamic> map = {};
     map["namaProduct"] = namaProduct;
-    map["jenisProduct"] = jenisProduct;
     map["descProduct"] = descProduct;
     map["hargaProduct"] = hargaProduct;
-    map["imageHas"] = imageHas;
-    map["imageUrlProduct"] = imageUrlProduct;
+    map["imagesHash"] = imagesHash;
+    map["imagesUrl"] = imagesUrl;
     map["productId"] = productId;
     return map;
   }

@@ -10,7 +10,7 @@ userToChats(Map<String, dynamic> map) {
   chat.userImage = map[UserKey.userImage];
   chat.userImageHash = map[UserKey.userImageHash];
   chat.userName = map[UserKey.userName];
-  chat.userProfile = map[UserKey.userProfile];
+  // chat.userProfile = map[UserKey.userProfile];
   // chat.lastChat = '';
   // chat.lastChatType = Const.typeNormal;
   // chat.lastImage = null;

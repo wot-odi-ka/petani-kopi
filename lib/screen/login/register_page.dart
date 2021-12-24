@@ -114,6 +114,7 @@ class _RegisterBodyState extends State<RegisterBody> {
         child: Container(
           padding: const EdgeInsets.only(left: 36, right: 36, top: 24),
           child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -201,7 +202,7 @@ class _RegisterBodyState extends State<RegisterBody> {
             builder: (context, logState) => CommonShimmer(
               isLoading: (regState is RegisterOnLoading ||
                   logState is LoginOnProgress),
-              child: ButtonConfirm(
+              child: ButtonConfirmGradient(
                 text: 'SIGN UP',
                 onTap: () => submit(),
               ),

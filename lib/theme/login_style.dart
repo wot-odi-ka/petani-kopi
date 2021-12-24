@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
 TextSpan signInSPan() => const TextSpan(
-      text: "Welcome",
+      text: "Welcome Back",
       style: TextStyle(
         fontSize: 25,
         letterSpacing: 2,
-        color: backgroundColor,
+        color: Colors.white,
       ),
       children: [
         TextSpan(
-          text: ' Back',
+          text: ' \n     to Petani Kopi',
           style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,
-            color: backgroundColor,
+            color: Colors.white,
             fontStyle: FontStyle.italic,
           ),
         )
@@ -26,19 +26,29 @@ TextSpan signUpSpan() => const TextSpan(
       style: TextStyle(
         fontSize: 25,
         letterSpacing: 2,
-        color: backgroundColor,
+        color: Colors.white,
       ),
       children: [
         TextSpan(
-          text: ' Petani Kopi',
+          text: ' \n      Petani Kopi',
           style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,
-            color: backgroundColor,
+            color: Colors.white,
             fontStyle: FontStyle.italic,
           ),
         )
       ],
+    );
+
+TextSpan petani() => const TextSpan(
+      text: ' Petani Kopi',
+      style: TextStyle(
+        fontSize: 25,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+        fontStyle: FontStyle.italic,
+      ),
     );
 
 TextStyle loginTextStyle() => const TextStyle(

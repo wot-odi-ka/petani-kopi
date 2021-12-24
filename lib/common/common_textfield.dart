@@ -31,19 +31,19 @@ class CommonTextfield extends StatelessWidget {
         prefixIcon: Icon(prefixIcon, color: mainColor),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
-          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
-          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
-          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
-          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
         ),
         contentPadding: const EdgeInsets.all(10),
         hintText: hint,
@@ -102,19 +102,19 @@ class _CommonTextPassState extends State<CommonTextPass> {
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
-          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
-          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
-          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
-          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
         ),
         contentPadding: const EdgeInsets.all(10),
         hintText: widget.hint,
@@ -147,19 +147,19 @@ class CommonSearchField extends StatelessWidget {
         prefixIcon: Icon(prefixIcon, color: mainColor),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
-          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
-          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
-          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
-          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
         ),
         contentPadding: const EdgeInsets.all(10),
         hintText: hint,

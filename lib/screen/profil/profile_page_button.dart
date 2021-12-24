@@ -110,7 +110,7 @@ ButtonStyle cancelStyle(bool? isNull) {
     padding: const EdgeInsets.symmetric(horizontal: 16.0),
     shape: RoundedRectangleBorder(
       side: BorderSide(
-        color: isNull! ? projectPrimary : projectDarkGray,
+        color: isNull! ? mainColor : projectDarkGray,
         width: 0.8,
       ),
       borderRadius: const BorderRadius.only(

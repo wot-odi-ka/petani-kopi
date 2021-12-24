@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, avoid_unnecessary_containers, non_constant_identifier_names, prefer_const_literals_to_create_immutables
 
-import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:petani_kopi/animation/common_detail.dart';
@@ -56,7 +55,7 @@ class _DashboardBodyState extends State<DashboardBody> {
                   color: Colors.white,
                   iconSize: 25,
                   onPressed: () {
-                    Jump.replace(Pages.notivication);
+                    Jump.to(Pages.notivication);
                   },
                   icon: Icon(Icons.add_alert_rounded),
                 ),
@@ -73,8 +72,10 @@ class _DashboardBodyState extends State<DashboardBody> {
                       ),
                       child: Text(
                         3.toString(),
-                        style:
-                            const TextStyle(fontSize: 11, color: Colors.white),
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

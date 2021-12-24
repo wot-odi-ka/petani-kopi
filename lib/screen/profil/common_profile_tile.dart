@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
 import 'package:petani_kopi/screen/profil/common_profile_textfield.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
@@ -51,7 +50,7 @@ class _CommonProfileTileState extends State<CommonProfileTile> {
                     onTap: widget.onTapEdit ?? () {},
                     child: const Icon(
                       Icons.edit,
-                      color: mainColor,
+                      color: projectWhite,
                     ),
                   ),
                 ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:petani_kopi/helper/page.dart';
-import 'package:petani_kopi/screen/dashboard/dashboard_page.dart';
 import 'package:petani_kopi/service/jump.dart';
 
 class PaymentSuccess extends StatefulWidget {

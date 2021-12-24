@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:petani_kopi/theme/app_theme.dart';
@@ -14,22 +16,27 @@ class SelectMediaBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const SizedBox(height: 10),
-        SelectMedia(
-          ontap: () => gallery(),
-          text: 'Gallery',
-          icon: IconlyLight.folder,
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+      child: Material(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 10),
+            SelectMedia(
+              ontap: () => gallery(),
+              text: 'Gallery',
+              icon: IconlyLight.folder,
+            ),
+            SelectMedia(
+              ontap: () => camera(),
+              text: 'Camera',
+              icon: IconlyLight.camera,
+            ),
+            const SizedBox(height: 10),
+          ],
         ),
-        SelectMedia(
-          ontap: () => camera(),
-          text: 'Camera',
-          icon: IconlyLight.camera,
-        ),
-        const SizedBox(height: 10),
-      ],
+      ),
     );
   }
 }
@@ -57,6 +64,7 @@ class SelectMedia extends StatelessWidget {
           text,
           style: MyTheme.heading2.copyWith(
             fontSize: 16,
+            color: mainColor,
           ),
         ),
       ),

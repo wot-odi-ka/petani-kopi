@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:petani_kopi/helper/page.dart';
 import 'package:petani_kopi/model/item.dart';
-import 'package:petani_kopi/model/product.dart';
 import 'package:petani_kopi/service/jump.dart';
 
 class CardPage extends StatelessWidget {

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:petani_kopi/model/product.dart';
 import 'package:petani_kopi/model/users.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

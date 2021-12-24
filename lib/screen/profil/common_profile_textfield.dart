@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
 class CommonProfileTextfield extends StatefulWidget {
@@ -55,21 +56,52 @@ class _CommonProfileTextfieldState extends State<CommonProfileTextfield>
         // fontWeight: FontWeight.w300,
         // fontSize: 22,
       ),
-      decoration: InputDecoration(
-        hintText: widget.hint,
-        hintStyle: const TextStyle(
-          color: backgroundColor,
-          fontWeight: FontWeight.w300,
-          fontSize: 22,
-        ),
-        enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: backgroundColor),
-        ),
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: backgroundColor),
-        ),
-      ),
+      decoration: decor(IconlyLight.edit),
+
+      // InputDecoration(
+      //   hintText: widget.hint,
+      //   fillColor: projectWhite,
+      //   hintStyle: const TextStyle(
+      //     color: backgroundColor,
+      //     fontWeight: FontWeight.w300,
+      //     fontSize: 22,
+      //   ),
+      //   enabledBorder: const UnderlineInputBorder(
+      //     borderSide: BorderSide(color: backgroundColor),
+      //   ),
+      //   focusedBorder: const UnderlineInputBorder(
+      //     borderSide: BorderSide(color: backgroundColor),
+      //   ),
+      // ),
       onFieldSubmitted: (val) => widget.onSubmit!(val),
+    );
+  }
+
+  InputDecoration decor(IconData prefix) {
+    return InputDecoration(
+      prefixIcon: Icon(prefix, color: mainColor),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
+        borderRadius: const BorderRadius.all(Radius.circular(25)),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
+        borderRadius: const BorderRadius.all(Radius.circular(25)),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
+        borderRadius: const BorderRadius.all(Radius.circular(25)),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
+        borderRadius: const BorderRadius.all(Radius.circular(25)),
+      ),
+      contentPadding: const EdgeInsets.all(10),
+      hintText: 'hint',
+      hintStyle: const TextStyle(
+        fontSize: 14,
+        color: iconColor,
+      ),
     );
   }
 }

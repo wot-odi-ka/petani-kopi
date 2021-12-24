@@ -51,3 +51,5 @@ const projectBG = Color(0xFFE4E9F2);
 const projectOldGreen = Color(0xFF20C374);
 const projectOldYellow = Color(0xFFFFD523);
 const projectOldRed = Color(0xFFF44771);
+const kopiMain = Color(0xFF0d1015);
+const oldCoffee = Color(0XFF49281A);

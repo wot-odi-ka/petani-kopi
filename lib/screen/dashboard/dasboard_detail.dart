@@ -1,7 +1,4 @@
-import 'package:avatar_glow/avatar_glow.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:petani_kopi/helper/page.dart';
 import 'package:petani_kopi/service/jump.dart';
 

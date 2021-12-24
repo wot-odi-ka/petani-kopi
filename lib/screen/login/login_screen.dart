@@ -66,6 +66,7 @@ class _LoginBodyState extends State<LoginBody> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 CommonTextfield(
                   controller: emailCo,
@@ -127,7 +128,7 @@ class _LoginBodyState extends State<LoginBody> {
         builder: (context, state) {
           return CommonShimmer(
             isLoading: state is LoginOnProgress,
-            child: ButtonConfirm(
+            child: ButtonConfirmGradient(
               text: 'LOGIN',
               onTap: () => login(),
             ),

@@ -1,9 +1,12 @@
-import 'package:petani_kopi/bloc/profil_block/profil_event.dart';
 import 'package:petani_kopi/model/product.dart';
 
 class ProductEvent {}
 
-class SubmitProduct extends ProductEvent {}
+class SubmitProduct extends ProductEvent {
+  final Product product;
+
+  SubmitProduct(this.product);
+}
 
 class RegisterProduct extends ProductEvent {
   final Product product;
