@@ -39,6 +39,40 @@ class Const {
     'Mandiri',
     'BRI',
   ];
+
+  static const List<String> cofeeType = [
+    'Americano',
+    'Latte',
+    'Cappuccino',
+    'Flat White',
+    'Es Kopi Susu',
+    'Cafe Au Lait',
+    'Black Coffee',
+    'Espresso',
+    'Macchiato',
+    'Cold Brew',
+  ];
+
+  static const List<String> cofeeTypeBar = [
+    'All',
+    'Americano',
+    'Latte',
+    'Cappuccino',
+    'Flat White',
+    'Es Kopi Susu',
+    'Cafe Au Lait',
+    'Black Coffee',
+    'Espresso',
+    'Macchiato',
+    // 'Cold Brew',
+  ];
+
+  static const SliverGridDelegateWithFixedCrossAxisCount fixGrid =
+      SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 2,
+    mainAxisSpacing: 10,
+    crossAxisSpacing: 25,
+  );
 }
 
 List<BoxShadow> commonShadow = [

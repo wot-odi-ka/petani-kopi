@@ -18,7 +18,7 @@ class CommonShimmer extends StatelessWidget {
       child: (isLoading!)
           ? Shimmer.fromColors(
               key: const ValueKey('1'),
-              period: const Duration(milliseconds: 1500),
+              period: const Duration(milliseconds: 300),
               baseColor: iconColor.withOpacity(0.8),
               highlightColor: Colors.grey.shade100,
               child: child!,

@@ -11,8 +11,8 @@ import 'package:petani_kopi/bloc/permission_bloc/permission_event.dart';
 import 'package:petani_kopi/bloc/profil_block/profil_block.dart';
 import 'package:petani_kopi/bloc/profil_block/profil_event.dart';
 import 'package:petani_kopi/bloc/profil_block/profil_state.dart';
+import 'package:petani_kopi/common/common_alert_dialog.dart';
 import 'package:petani_kopi/common/common_loading.dart';
-import 'package:petani_kopi/common/logout_dialog.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
 import 'package:petani_kopi/helper/constants.dart';
 import 'package:petani_kopi/helper/page.dart';
@@ -26,17 +26,20 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider<ProfilBlock>(
-        create: (context) => ProfilBlock()..add(ProfilInitEvent()),
-      ),
-      BlocProvider<PermissionBloc>(
-        create: (context) => PermissionBloc(),
-      ),
-      BlocProvider<AuthBloc>(
-        create: (context) => AuthBloc(),
-      ),
-    ], child: const ProfileBody());
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ProfilBlock>(
+          create: (context) => ProfilBlock()..add(ProfilInitEvent()),
+        ),
+        BlocProvider<PermissionBloc>(
+          create: (context) => PermissionBloc(),
+        ),
+        BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(),
+        ),
+      ],
+      child: const ProfileBody(),
+    );
   }
 }
 
@@ -275,10 +278,12 @@ class _ProfileBodyState extends State<ProfileBody> {
   showLogoutChoice() {
     return showDialog(
       context: context,
-      builder: (context) => LogoutDialog(
+      builder: (context) => CustomDialogBox(
+        onTapYes: () => logoutBloc(AuthLogout()),
+        descriptions: 'Are you sure you want to logout?',
         title: 'Logout',
-        content: 'Are you sure you want to logout?',
-        continueCallBack: () => logoutBloc(AuthLogout()),
+        yes: 'Sure',
+        no: 'Later',
       ),
     );
   }
@@ -353,10 +358,7 @@ class _ProfileBodyState extends State<ProfileBody> {
       return Card(
         elevation: 5,
         child: ListTile(
-          onTap: () => Jump.toArg(
-            Pages.sellerPage,
-            {'isRegister': user.userIsSeller},
-          ),
+          onTap: () => checkSellerStatus(),
           leading: const Icon(
             IconlyLight.bag,
             color: mainColor,
@@ -376,6 +378,31 @@ class _ProfileBodyState extends State<ProfileBody> {
             IconlyLight.arrow_right_2,
             color: mainColor,
           ),
+        ),
+      );
+    }
+  }
+
+  void checkSellerStatus() {
+    if (user.rekening!.isNotEmpty && user.noRekening!.isNotEmpty) {
+      Jump.toArg(
+        Pages.sellerPage,
+        {'isRegister': user.userIsSeller},
+      ).then((_) => bloc(ProfilInitEvent()));
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => CustomDialogBox(
+          onTapYes: () {
+            Navigator.of(context).pop();
+            Jump.to(Pages.editProfile).then((_) {
+              bloc(ProfilInitEvent());
+            });
+          },
+          descriptions: 'Profile need to be completed to start transaction',
+          title: 'Profile Not Completed',
+          yes: 'I Understand',
+          no: 'Later',
         ),
       );
     }

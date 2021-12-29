@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:blurhash/blurhash.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +42,6 @@ class ProfilBlock extends Bloc<ProfilEvent, ProfilState> {
       UploadTask uploadTask = ref.putFile(file);
       TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
       await taskSnapshot.ref.getDownloadURL().then((value) => url = value);
-
       Uint8List bytes = await file.readAsBytes();
       await BlurHash.encode(bytes, 2, 2).then((value) => hash = value);
     }
@@ -61,7 +59,6 @@ class ProfilBlock extends Bloc<ProfilEvent, ProfilState> {
     data.noRekening = result.noRekening ?? users.noRekening;
     data.rekening = result.rekening ?? users.noRekening;
     await LogQuery.updateUserData(data);
-    users = await LogQuery.getUsersById(users.userId!);
     await DB.saveUser(users);
   }
 }

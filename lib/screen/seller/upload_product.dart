@@ -20,13 +20,14 @@ import 'package:petani_kopi/bloc/profil_block/profil_state.dart';
 import 'package:petani_kopi/common/common_carousel.dart';
 import 'package:petani_kopi/common/common_detail_animation.dart';
 import 'package:petani_kopi/common/common_loading.dart';
+import 'package:petani_kopi/common/common_profile_tile.dart';
 import 'package:petani_kopi/common/common_upload_choice.dart';
 import 'package:petani_kopi/common/custom_gallery/gallery_utils.dart';
 import 'package:petani_kopi/common/expandables.dart';
-import 'package:petani_kopi/common/shared_profile_field.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
 import 'package:petani_kopi/helper/constants.dart';
 import 'package:petani_kopi/helper/snack_bar.dart';
+import 'package:petani_kopi/helper/utils.dart';
 import 'package:petani_kopi/model/product.dart';
 import 'package:petani_kopi/model/users.dart';
 import 'package:petani_kopi/service/jump.dart';
@@ -71,9 +72,13 @@ class _UploadProductBodyState extends State<UploadProductBody>
   late AnimationController animation;
   ScrollController scrollController = ScrollController();
   TextEditingController nameProductCo = TextEditingController();
-  TextEditingController jenisProductCo = TextEditingController();
+  TextEditingController typeProductCo = TextEditingController();
   TextEditingController descProductCo = TextEditingController();
   TextEditingController hargaProductCo = TextEditingController();
+  FocusNode nameProductNode = FocusNode();
+  FocusNode typeProductNode = FocusNode();
+  FocusNode descProductNode = FocusNode();
+  FocusNode hargaProductNode = FocusNode();
   List<CarouselArg> arg = [];
   Product product = Product();
   Users user = Users();
@@ -128,7 +133,6 @@ class _UploadProductBodyState extends State<UploadProductBody>
             if (state is ProductOnLoaded) {
               Jump.back();
             }
-
             if (state is ProductFiled) {
               context.fail(state.error);
             }
@@ -178,222 +182,221 @@ class _UploadProductBodyState extends State<UploadProductBody>
           ),
         ),
         body: blocBuilder(
-          child: SizedBox(
-            height: context.height(),
-            child: SingleChildScrollView(
-              controller: scrollController,
-              child: Column(
-                children: [
-                  Container(
-                    width: context.width(),
-                    decoration: const BoxDecoration(
-                      color: mainColor,
-                      borderRadius: BorderRadius.vertical(
-                        bottom: Radius.circular(40),
+          child: GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: SizedBox(
+              height: context.height(),
+              child: SingleChildScrollView(
+                controller: scrollController,
+                child: Column(
+                  children: [
+                    Container(
+                      width: context.width(),
+                      decoration: const BoxDecoration(
+                        color: mainColor,
+                        borderRadius: BorderRadius.vertical(
+                          bottom: Radius.circular(40),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(24.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 24),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                IconButton(
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
+                                  icon: const Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: () => Jump.back(),
+                                ),
+                                const Text(
+                                  'Upload Product',
+                                  style: TextStyle(
+                                    color: backgroundColor,
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                // const SizedBox(width: 32),
+                                condition()
+                                    ? GestureDetector(
+                                        onTap: () => onSubmit(),
+                                        child: const Text(
+                                          'Save',
+                                          style: TextStyle(
+                                            color: backgroundColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      )
+                                    : const SizedBox(width: 32),
+                              ],
+                            ),
+                            const SizedBox(height: 24),
+                            Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(50),
+                                  ),
+                                  child: SizedBox(
+                                    width: 80.0,
+                                    height: 80.0,
+                                    child: CommonDetailAnimation(
+                                      detail: DetailUserImage(
+                                        imageHash: user.userImageHash ??
+                                            Const.emptyHash,
+                                        imageUrl:
+                                            user.userImage ?? Const.emptyImage,
+                                      ),
+                                      child: BlurHash(
+                                        hash: user.userImageHash ??
+                                            Const.emptyHash,
+                                        image:
+                                            user.userImage ?? Const.emptyImage,
+                                        imageFit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 16),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      user.userMail ?? '',
+                                      style: const TextStyle(
+                                        color: backgroundColor,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      user.userName ?? '',
+                                      style: const TextStyle(
+                                        color: backgroundColor,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const Spacer(),
+                                ExpandableWidget(
+                                  expand: arg.length < 3,
+                                  direction: Axis.horizontal,
+                                  child: AvatarGlow(
+                                    glowColor: backgroundColor,
+                                    endRadius: 30,
+                                    duration:
+                                        const Duration(milliseconds: 2000),
+                                    repeat: true,
+                                    showTwoGlows: true,
+                                    repeatPauseDuration: const Duration(
+                                      milliseconds: 100,
+                                    ),
+                                    child: CircleAvatar(
+                                      backgroundColor: oldCoffee,
+                                      child: IconButton(
+                                        alignment: Alignment.center,
+                                        onPressed: () => showUploadChoice(),
+                                        icon: const Icon(
+                                          IconlyLight.camera,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            ExpandableWidget(
+                              expand: arg.isNotEmpty,
+                              child: Visibility(
+                                visible: arg.isNotEmpty,
+                                child: Column(
+                                  children: [
+                                    const SizedBox(height: 24),
+                                    SizedBox(
+                                      height: 220,
+                                      child: PageView.builder(
+                                        itemCount: arg.length,
+                                        controller: _pageController,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (context, index) {
+                                          return CommonCarousel(
+                                            controller: _pageController,
+                                            animation: animation,
+                                            model: arg[index],
+                                            onDel: () => onDel(arg[index]),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                          ],
+                        ),
                       ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(24.0),
+                    Container(
+                      padding: const EdgeInsets.only(
+                        left: 18,
+                        top: 8,
+                        right: 18,
+                      ),
+                      width: context.width(),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(height: 35),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              IconButton(
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(),
-                                icon: const Icon(
-                                  Icons.arrow_back,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () => Jump.back(),
-                              ),
-                              const Text(
-                                'Upload Product',
-                                style: TextStyle(
-                                  color: backgroundColor,
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              // const SizedBox(width: 32),
-                              condition()
-                                  ? GestureDetector(
-                                      onTap: () => onSubmit(),
-                                      child: const Text(
-                                        'Save',
-                                        style: TextStyle(
-                                          color: backgroundColor,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    )
-                                  : const SizedBox(width: 32),
+                          const SizedBox(height: 12),
+                          CommonProfileTileField(
+                            node: nameProductNode,
+                            controller: nameProductCo,
+                            hint: 'Product Name',
+                          ),
+                          const SizedBox(height: 16),
+                          CommonProfileTileField(
+                            node: typeProductNode,
+                            controller: typeProductCo,
+                            hint: 'Coffee Type',
+                            tileType: TileType.drop,
+                            items: Const.cofeeType,
+                          ),
+                          const SizedBox(height: 16),
+                          CommonProfileTileField(
+                            node: descProductNode,
+                            controller: descProductCo,
+                            hint: 'Product Description',
+                          ),
+                          const SizedBox(height: 16),
+                          CommonProfileTileField(
+                            textInputType: TextInputType.number,
+                            node: hargaProductNode,
+                            controller: hargaProductCo,
+                            hint: 'Product Price',
+                            formatter: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              CurrencyInputFormatter(),
                             ],
                           ),
-                          const SizedBox(height: 24),
-                          Row(
-                            children: [
-                              ClipRRect(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(50),
-                                ),
-                                child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: CommonDetailAnimation(
-                                    detail: DetailUserImage(
-                                      imageHash:
-                                          user.userImageHash ?? Const.emptyHash,
-                                      imageUrl:
-                                          user.userImage ?? Const.emptyImage,
-                                    ),
-                                    child: BlurHash(
-                                      hash:
-                                          user.userImageHash ?? Const.emptyHash,
-                                      image: user.userImage ?? Const.emptyImage,
-                                      imageFit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    user.userMail ?? '',
-                                    style: const TextStyle(
-                                      color: backgroundColor,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    user.userName ?? '',
-                                    style: const TextStyle(
-                                      color: backgroundColor,
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const Spacer(),
-                              AvatarGlow(
-                                glowColor: backgroundColor,
-                                endRadius: 30,
-                                duration: const Duration(milliseconds: 2000),
-                                repeat: true,
-                                showTwoGlows: true,
-                                repeatPauseDuration: const Duration(
-                                  milliseconds: 100,
-                                ),
-                                child: CircleAvatar(
-                                  backgroundColor: oldCoffee,
-                                  child: IconButton(
-                                    alignment: Alignment.center,
-                                    onPressed: () => showUploadChoice(),
-                                    icon: const Icon(
-                                      IconlyLight.camera,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          ExpandableWidget(
-                            expand: arg.isNotEmpty,
-                            child: Visibility(
-                              visible: arg.isNotEmpty,
-                              child: Column(
-                                children: [
-                                  const SizedBox(height: 24),
-                                  SizedBox(
-                                    height: 220,
-                                    child: PageView.builder(
-                                      itemCount: arg.length,
-                                      controller: _pageController,
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) {
-                                        return CommonCarousel(
-                                          controller: _pageController,
-                                          animation: animation,
-                                          model: arg[index],
-                                          onDel: () => onDel(arg[index]),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 8),
                         ],
                       ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 18, top: 8, right: 18),
-                    width: context.width(),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 12),
-                        Card(
-                          elevation: 5,
-                          child: ListTile(
-                            onTap: () {},
-                            title: CommonProductField(
-                              hint: 'Product Name',
-                              controller: nameProductCo,
-                            ),
-                            trailing: const Icon(
-                              IconlyLight.arrow_right_2,
-                              color: mainColor,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Card(
-                          elevation: 5,
-                          child: ListTile(
-                            onTap: () {},
-                            title: CommonProductField(
-                              hint: 'Product Description',
-                              controller: descProductCo,
-                            ),
-                            trailing: const Icon(
-                              IconlyLight.arrow_right_2,
-                              color: mainColor,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Card(
-                          elevation: 5,
-                          child: ListTile(
-                            onTap: () {},
-                            title: CommonProductField(
-                              hint: 'Product Price',
-                              controller: hargaProductCo,
-                            ),
-                            trailing: const Icon(
-                              IconlyLight.arrow_right_2,
-                              color: mainColor,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -490,6 +493,7 @@ class _UploadProductBodyState extends State<UploadProductBody>
     data.namaProduct = nameProductCo.text;
     data.descProduct = descProductCo.text;
     data.hargaProduct = hargaProductCo.text;
+    data.jenisKopi = typeProductCo.text;
     for (var item in arg) {
       data.initImage!.add(item.image!);
       data.imagesHash!.add(item.hash!);

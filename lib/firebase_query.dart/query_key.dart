@@ -24,6 +24,11 @@ class Col {
   static const allChats = 'AllChats';
   static const chatData = 'ChatData';
   static const isInRoom = 'IsInRoom';
+  static const productSearch = 'ProductSearch';
+}
+
+class ProdKey {
+  static const productId = 'productId';
 }
 
 class ShopKey {

@@ -112,6 +112,9 @@ class _EditProfileBodyState extends State<EditProfileBody> {
             if (state is UserProfileFailed) {
               context.fail(state.error);
             }
+            if (state is ProfileUpdated) {
+              Jump.back();
+            }
           },
         ),
         BlocListener<PermissionBloc, PermissionState>(
@@ -216,10 +219,8 @@ class _EditProfileBodyState extends State<EditProfileBody> {
                                     height: 80.0,
                                     child: CommonDetailAnimation(
                                       detail: DetailUserImage(
-                                        imageHash: user.userImageHash ??
-                                            Const.emptyHash,
-                                        imageUrl:
-                                            user.userImage ?? Const.emptyImage,
+                                        imageHash: user.userImageHash ?? '',
+                                        imageUrl: user.userImage ?? '',
                                       ),
                                       child: (image != null)
                                           ? Image.file(
@@ -404,6 +405,9 @@ class _EditProfileBodyState extends State<EditProfileBody> {
     userNameCo.text = user.userName!;
     phoneCo.text = user.userPhone!;
     alamatCo.text = user.userAlamat!;
+    cityCo.text = user.userCity!;
+    rekCo.text = user.rekening!;
+    noRekCo.text = user.noRekening!;
     setState(() {});
   }
 

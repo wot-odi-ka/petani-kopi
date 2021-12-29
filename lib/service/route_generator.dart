@@ -12,7 +12,7 @@ import 'package:petani_kopi/screen/login/login_main.dart';
 import 'package:petani_kopi/screen/profil/edit_profile.dart';
 import 'package:petani_kopi/screen/profil/profil_page.dart';
 import 'package:petani_kopi/screen/profil/setting_page.dart';
-import 'package:petani_kopi/screen/seller/my_shop.dart';
+import 'package:petani_kopi/screen/seller/my_shop_page.dart';
 import 'package:petani_kopi/screen/seller/tambah_product.dart';
 import 'package:petani_kopi/screen/seller/upload_product.dart';
 
@@ -67,7 +67,7 @@ class RouteGenerator {
           );
         case Pages.myShopPage:
           return CupertinoPageRoute(
-            builder: (_) => const MyShopPage(),
+            builder: (_) => const MyShopScreen(),
           );
         case Pages.tambahProduct:
           return CupertinoPageRoute(

@@ -53,8 +53,12 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
   updateData(Product eventData) async {
     eventData.userId = users.userId;
+    eventData.userName = users.userName;
+    eventData.userCity = users.userCity;
+    eventData.userImage = users.userImage;
+    eventData.userImageHash = users.userImageHash;
     eventData.imagesUrl!.addAll(imagesUrl);
-    await ProductQuery.updateProduct(eventData);
+    await ProductQuery.uploadProduct(eventData);
     await LogQuery.updateSellerStatus(users.userId!);
     users.userIsSeller = true;
     DB.saveUser(users);
@@ -62,7 +66,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
   addProduct(Product eventData) async {
     eventData.userId = users.userId;
+    eventData.userName = users.userName;
+    eventData.userCity = users.userCity;
+    eventData.userImage = users.userImage;
+    eventData.userImageHash = users.userImageHash;
     eventData.imagesUrl!.addAll(imagesUrl);
-    await ProductQuery.updateProduct(eventData);
+    await ProductQuery.uploadProduct(eventData);
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:petani_kopi/firebase_query.dart/query_key.dart';
 import 'package:petani_kopi/model/users.dart';
@@ -92,4 +93,41 @@ extension Change2 on Timer? {
     if (timer != null) timer.cancel();
     timer = Timer(duration, onSearch);
   }
+}
+
+class CurrencyInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    if (newValue.selection.baseOffset == 0) {
+      return newValue;
+    }
+
+    String finalVal = "";
+    if (newValue.text.trim() != "") {
+      final formatter = NumberFormat("#,###");
+      String x = newValue.text.replaceAll(".", "");
+      int intval = int.parse(x);
+      finalVal = formatter.format(intval).replaceAll(",", ".");
+    }
+
+    return newValue.copyWith(
+      text: finalVal,
+      selection: TextSelection.collapsed(
+        offset: finalVal.length,
+      ),
+    );
+  }
+}
+
+List<String> generateSearchList({required String data}) {
+  List<String> caseSearchList = [''];
+  String temp = "";
+  for (int i = 0; i < data.length; i++) {
+    temp = (temp + data[i]).toLowerCase();
+    caseSearchList.add(temp);
+  }
+  return caseSearchList;
 }

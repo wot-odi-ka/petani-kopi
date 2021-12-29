@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iconly/iconly.dart';
 import 'package:petani_kopi/common/ahead_dropdown.dart';
 import 'package:petani_kopi/common/shared_profile_field.dart';
@@ -18,6 +19,8 @@ class CommonProfileTileField extends StatefulWidget {
   final TextInputType textInputType;
   final FocusNode? node;
   final IconData icon;
+  final List<TextInputFormatter> formatter;
+  final Function(String?)? onChange;
   const CommonProfileTileField({
     Key? key,
     required this.controller,
@@ -26,7 +29,9 @@ class CommonProfileTileField extends StatefulWidget {
     this.items = Const.city,
     this.textInputType = TextInputType.text,
     this.icon = IconlyLight.arrow_right_2,
+    this.formatter = const [],
     this.node,
+    this.onChange,
   }) : super(key: key);
 
   @override
@@ -51,7 +56,13 @@ class _CommonProfileTileFieldState extends State<CommonProfileTileField> {
                         hint: widget.hint,
                         controller: widget.controller,
                         textInputType: widget.textInputType,
-                        onChange: (v) => setState(() {}),
+                        formatter: widget.formatter,
+                        onChange: widget.onChange != null
+                            ? (v) {
+                                setState(() {});
+                                widget.onChange!(v);
+                              }
+                            : (v) => setState(() {}),
                       )
                     : AheadDropdown(
                         node: widget.node,

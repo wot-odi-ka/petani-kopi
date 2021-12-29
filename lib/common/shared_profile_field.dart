@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
 class SharedProfileField extends StatelessWidget {
@@ -84,6 +85,7 @@ class CommonProductField extends StatelessWidget {
   final Function(String?)? onChange;
   final Widget? suffixIcon;
   final TextInputType textInputType;
+  final List<TextInputFormatter> formatter;
   const CommonProductField({
     Key? key,
     this.node,
@@ -95,6 +97,7 @@ class CommonProductField extends StatelessWidget {
     this.onClosed,
     this.suffixIcon,
     this.onChange,
+    this.formatter = const [],
   }) : super(key: key);
 
   @override
@@ -103,6 +106,7 @@ class CommonProductField extends StatelessWidget {
       cursorColor: mainColor,
       controller: controller ?? TextEditingController(),
       focusNode: node ?? FocusNode(),
+      inputFormatters: formatter,
       style: const TextStyle(color: mainColor),
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
@@ -122,6 +126,68 @@ class CommonProductField extends StatelessWidget {
         focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(
             color: mainColor,
+            width: 0.5,
+          ),
+        ),
+      ),
+      onChanged: onChange,
+      textInputAction: TextInputAction.done,
+      keyboardType: textInputType,
+    );
+  }
+}
+
+class CommonProductField2 extends StatelessWidget {
+  final FocusNode? node;
+  final TextEditingController? controller;
+  final String hint;
+  final String title;
+  final Function(String)? onSubmit;
+  final Function()? onClosed;
+  final Function(String?)? onChange;
+  final Widget? suffixIcon;
+  final TextInputType textInputType;
+  final List<TextInputFormatter> formatter;
+  const CommonProductField2({
+    Key? key,
+    this.node,
+    this.controller,
+    this.hint = '',
+    this.title = '',
+    this.textInputType = TextInputType.text,
+    this.onSubmit,
+    this.onClosed,
+    this.suffixIcon,
+    this.onChange,
+    this.formatter = const [],
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      cursorColor: projectWhite,
+      controller: controller ?? TextEditingController(),
+      focusNode: node ?? FocusNode(),
+      inputFormatters: formatter,
+      style: const TextStyle(color: projectWhite),
+      decoration: InputDecoration(
+        suffixIcon: suffixIcon,
+        hintText: hint,
+        isDense: true,
+        hintStyle: const TextStyle(
+          color: projectWhite,
+          fontWeight: FontWeight.w300,
+          fontSize: 14,
+        ),
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: projectWhite,
+            width: 0.5,
+          ),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: projectWhite,
             width: 0.5,
           ),
         ),

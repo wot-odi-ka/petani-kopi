@@ -38,15 +38,6 @@ class _DashboardBodyState extends State<DashboardBody> {
         elevation: 0,
         backgroundColor: Color(0xFF0d1015),
         automaticallyImplyLeading: false,
-        // leading: IconButton(
-        //   icon: Icon(
-        //     Icons.menu_rounded,
-        //     size: 25,
-        //   ),
-        //   onPressed: () {
-        //     _key.currentState!.openDrawer();
-        //   },
-        // ),
         actions: [
           Center(
             child: Stack(
@@ -83,24 +74,6 @@ class _DashboardBodyState extends State<DashboardBody> {
               ],
             ),
           ),
-          // SizedBox(
-          //   height: 35,
-          //   width: 40,
-          //   child: CircleAvatar(
-          //     backgroundColor: Colors.grey.withOpacity(0.5),
-          //     child: IconButton(
-          //       alignment: Alignment.center,
-          //       icon: Icon(
-          //         Icons.person,
-          //         color: Colors.white,
-          //       ),
-          //       onPressed: () {
-          //         print('tesst icon button');
-          //         Jump.replace(Pages.profilPage);
-          //       },
-          //     ),
-          //   ),
-          // ),
           SizedBox(width: 20),
         ],
       ),
@@ -129,22 +102,12 @@ class _DashboardBodyState extends State<DashboardBody> {
                 color: Colors.white,
               ),
             ),
-            //   Column(
-            //   children: [
-            //     Padding(padding: EdgeInsets.only(top: 20)),
-            //     Text(
-            //       'Special for you',
-            //       style: ButtomStyle(),
-            //     ),
-            //   ],
-            // ),
             Container(
               child: ListScroll(
                 color: Colors.brown,
                 label: 'Cappuccino',
               ),
             ),
-
             Expanded(
               child: Container(
                 child: GridView.builder(

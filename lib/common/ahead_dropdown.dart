@@ -28,6 +28,11 @@ class _AheadDropdownState extends State<AheadDropdown> {
   @override
   Widget build(BuildContext context) {
     return TypeAheadFormField<String>(
+      suggestionsBoxDecoration: const SuggestionsBoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+        constraints: BoxConstraints(maxHeight: 230),
+        hasScrollbar: true,
+      ),
       suggestionsBoxController: controller,
       hideKeyboard: true,
       textFieldConfiguration: TextFieldConfiguration(
@@ -58,13 +63,9 @@ class _AheadDropdownState extends State<AheadDropdown> {
               width: 0.5,
             ),
           ),
-          // suffixIcon: widget.suffixIcon ??
-          //     const Icon(
-          //       IconlyLight.arrow_down_2,
-          //       size: 20,
-          //     ),
         ),
       ),
+      loadingBuilder: (context) => const SizedBox(height: 1),
       suggestionsCallback: (pattern) {
         return widget.items;
       },
