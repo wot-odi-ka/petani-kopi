@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(fontFamily: 'OpenSans'),
       navigatorKey: locator<NavigatorService>().navigatorKey,
       onGenerateRoute: (settings) => RouteGenerator.generateRoute(settings),
-      title: 'Petani Kopi',
+      title: 'KopiKuAsetku',
       home: const LoginMainPage(),
       debugShowCheckedModeBanner: false,
     );

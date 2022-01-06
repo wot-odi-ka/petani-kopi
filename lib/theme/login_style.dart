@@ -10,7 +10,7 @@ TextSpan signInSPan() => const TextSpan(
       ),
       children: [
         TextSpan(
-          text: ' \n     to Petani Kopi',
+          text: ' \n     to KopiKuAsetku',
           style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,
@@ -30,7 +30,7 @@ TextSpan signUpSpan() => const TextSpan(
       ),
       children: [
         TextSpan(
-          text: ' \n      Petani Kopi',
+          text: ' \n     KopiKuAsetku',
           style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,
@@ -42,7 +42,7 @@ TextSpan signUpSpan() => const TextSpan(
     );
 
 TextSpan petani() => const TextSpan(
-      text: ' Petani Kopi',
+      text: ' KopiKuAsetKu',
       style: TextStyle(
         fontSize: 25,
         fontWeight: FontWeight.bold,

@@ -45,7 +45,7 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
               ),
               MaterialButton(
                 onPressed: () {
-                  Jump.replace(Pages.homePage);
+                  Jump.to(Pages.homePage);
                 },
                 height: 50,
                 elevation: 0,

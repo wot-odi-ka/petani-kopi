@@ -24,7 +24,7 @@ class CartdBody extends StatefulWidget {
 
 class _CartPageState extends State<CartdBody> with TickerProviderStateMixin {
   late List<dynamic> cartItems = [];
-  List<int> cartItemCount = [1, 1, 1, 1];
+  List<int> cartItemCount = [1, 1, 1, 1, 1, 1];
   int totalPrice = 0;
 
   Future<void> fetchItems() async {
@@ -61,7 +61,7 @@ class _CartPageState extends State<CartdBody> with TickerProviderStateMixin {
               color: Colors.white,
             ),
             onPressed: () {
-              Jump.replace(Pages.homePage);
+              Jump.to(Pages.homePage);
             },
           ),
           title: const Text('My Cart', style: TextStyle(color: Colors.white)),
@@ -195,7 +195,7 @@ class _CartPageState extends State<CartdBody> with TickerProviderStateMixin {
             padding: const EdgeInsets.all(10.0),
             child: MaterialButton(
               onPressed: () {
-                Jump.replace(Pages.confrimOrder);
+                Jump.to(Pages.confrimOrder);
               },
               height: 50,
               elevation: 0,
@@ -241,8 +241,8 @@ class _CartPageState extends State<CartdBody> with TickerProviderStateMixin {
                   margin: const EdgeInsets.only(right: 65),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(60),
-                    child: Image.asset(
-                      'assets/images/kopiHitam.png',
+                    child: Image.network(
+                      itemProduct.imageURL,
                       fit: BoxFit.cover,
                       height: 100,
                       width: 100,
@@ -253,28 +253,28 @@ class _CartPageState extends State<CartdBody> with TickerProviderStateMixin {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        const Text(
-                          'Arabika',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
+                        Text(
+                          itemProduct.name,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                         const SizedBox(
                           height: 5,
                         ),
-                        const Text(
-                          'Kopi ireng',
+                        Text(
+                          'RP.${itemProduct.price}',
                           style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            color: Colors.grey.shade800,
                           ),
                         ),
                         const SizedBox(height: 15),
                         Text(
-                          'Rp.${100000}',
+                          itemProduct.brand,
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 18,
                             color: Colors.grey.shade800,
                           ),
                         ),

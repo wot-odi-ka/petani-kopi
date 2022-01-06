@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petani_kopi/bloc/dasboard_bloc/dasboard_event.dart';
 import 'package:petani_kopi/bloc/dasboard_bloc/dasboard_state.dart';
@@ -8,6 +9,7 @@ class DasboardBloc extends Bloc<DasboardEvent, DasboardState> {
   String? url;
   String? hash;
   Product product = Product();
+  Stream<QuerySnapshot>? productStream;
   DasboardBloc() : super(DasboardInitialState()) {
     on<DasboardEvent>((event, emit) => start(event, emit));
   }
@@ -15,7 +17,7 @@ class DasboardBloc extends Bloc<DasboardEvent, DasboardState> {
   start(DasboardEvent event, Emitter<DasboardState> emit) async {
     try {
       if (event is DasboardInitialEvent) {
-        emit(DasboardOnloadedState());
+        emit(DasboardOnloadedState(productStream!));
         product = await DB.getUser();
         emit(DasboardOnlodingState());
       }
