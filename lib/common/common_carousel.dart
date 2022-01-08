@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
@@ -9,6 +10,17 @@ class CarouselArg {
   int? index;
   String? hash;
   CarouselArg({
+    this.image,
+    this.index,
+    this.hash,
+  });
+}
+
+class CarouselUri {
+  String? image;
+  int? index;
+  String? hash;
+  CarouselUri({
     this.image,
     this.index,
     this.hash,
@@ -79,6 +91,61 @@ class CommonCarousel extends StatelessWidget {
                       color: backgroundColor,
                     ),
                   ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CommonUriCarousel extends StatelessWidget {
+  final PageController controller;
+  final AnimationController animation;
+  final CarouselUri model;
+  const CommonUriCarousel({
+    Key? key,
+    required this.controller,
+    required this.animation,
+    required this.model,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) {
+        double value = 1.0;
+        if (controller.position.haveDimensions) {
+          value = controller.page! - model.index!;
+          value = (1 - (value.abs() * .30)).clamp(0.0, 1.0);
+        }
+        return Center(
+          child: SizedBox(
+            height: Curves.easeOut.transform(value) * 220,
+            width: context.width(),
+            child: child,
+          ),
+        );
+      },
+      child: Card(
+        elevation: 4,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(25),
+          ),
+        ),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(25)),
+                child: BlurHash(
+                  hash: model.hash!,
+                  image: model.image!,
+                  imageFit: BoxFit.cover,
                 ),
               ),
             ),

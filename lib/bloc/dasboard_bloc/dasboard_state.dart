@@ -7,16 +7,20 @@ class DasboardInitialState extends DasboardState {}
 
 class DasboardOnlodingState extends DasboardState {}
 
+class AddCartSubmittin extends DasboardState {}
+
+class AddCartSubmitted extends DasboardState {}
+
 class DasboardOnloadedState extends DasboardState {
   final Stream<QuerySnapshot> products;
 
   DasboardOnloadedState(this.products);
 }
 
-class DasboardSucsess extends DasboardState {
+class GetProductSucsess extends DasboardState {
   final Product products;
 
-  DasboardSucsess(this.products);
+  GetProductSucsess(this.products);
 }
 
 class DasboardFiled extends DasboardState {

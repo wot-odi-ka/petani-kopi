@@ -131,3 +131,8 @@ List<String> generateSearchList({required String data}) {
   }
   return caseSearchList;
 }
+
+String setupSeparator(int value) {
+  NumberFormat numberFormat = NumberFormat.decimalPattern('IDR');
+  return numberFormat.format(value);
+}

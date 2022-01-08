@@ -14,6 +14,10 @@ class Product {
   //helper
   List<File>? initImage;
 
+  //cart
+  String? totalPrice;
+  String? itemCount;
+
   //productSearch
   List<String>? productSearch;
   List<String>? nameSearch;
@@ -35,6 +39,10 @@ class Product {
     //helper
     this.userId,
     this.initImage,
+
+    //cart
+    this.totalPrice,
+    this.itemCount,
 
     //productSearch
     this.nameSearch,
@@ -97,24 +105,53 @@ class Product {
     hargaProduct = json['hargaProduct'];
     jenisKopi = json['jenisKopi'];
     userImage = json['userImage'];
+    userName = json['userName'];
     userImageHash = json['userImageHash'];
     userCity = json['userCity'];
     userId = json['userId'];
-    json['imagesHash'].forEach((e) {
+    if (json['imagesHash'].isNotEmpty) {
       imagesHash = [];
-      imagesHash!.add(e);
-    });
-    json['imagesUrl'].forEach((e) {
+      json['imagesHash'].forEach((e) {
+        imagesHash!.add(e);
+      });
+    }
+    if (json['imagesUrl'].isNotEmpty) {
       imagesUrl = [];
-      imagesUrl!.add(e);
-    });
-    json['nameSearch'].forEach((e) {
+      json['imagesUrl'].forEach((e) {
+        imagesUrl!.add(e);
+      });
+    }
+    if (json['imagesUrl'].isNotEmpty) {
       nameSearch = [];
-      nameSearch!.add(e);
-    });
-    json['productSearch'].forEach((e) {
+      json['nameSearch'].forEach((e) {
+        nameSearch!.add(e);
+      });
+    }
+    if (json['imagesUrl'].isNotEmpty) {
       productSearch = [];
-      productSearch!.add(e);
-    });
+      json['productSearch'].forEach((e) {
+        productSearch!.add(e);
+      });
+    }
+  }
+
+  Map<String, dynamic> toCart() {
+    Map<String, dynamic> map = {};
+    map["namaProduct"] = namaProduct;
+    map["descProduct"] = descProduct;
+    map["hargaProduct"] = hargaProduct;
+    map["jenisKopi"] = jenisKopi;
+    map["imagesHash"] = imagesHash;
+    map["imagesUrl"] = imagesUrl;
+    map["productId"] = productId;
+    map["userImage"] = userImage;
+    map["userImageHash"] = userImageHash;
+    map["userCity"] = userCity;
+    map["userId"] = userId;
+    map["nameSearch"] = generateSearchList(data: userName ?? '');
+    map["productSearch"] = generateSearchList(data: namaProduct ?? '');
+    map["totalPrice"] = totalPrice;
+    map["itemCount"] = itemCount;
+    return map;
   }
 }

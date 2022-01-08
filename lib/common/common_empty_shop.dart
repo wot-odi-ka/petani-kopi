@@ -4,7 +4,14 @@ import 'package:petani_kopi/theme/colors.dart';
 
 class EmptyProducts extends StatelessWidget {
   final Function() onTap;
-  const EmptyProducts({Key? key, required this.onTap}) : super(key: key);
+  final String text;
+  final IconData icon;
+  const EmptyProducts({
+    Key? key,
+    required this.onTap,
+    this.text = 'Click to add Products',
+    this.icon = Icons.add,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +41,16 @@ class EmptyProducts extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
+              children: [
                 Icon(
-                  IconlyLight.plus,
+                  icon,
                   color: backgroundColor,
                   size: 24,
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
-                  'Click to add Products',
-                  style: TextStyle(
+                  text,
+                  style: const TextStyle(
                     color: backgroundColor,
                     fontWeight: FontWeight.w300,
                   ),

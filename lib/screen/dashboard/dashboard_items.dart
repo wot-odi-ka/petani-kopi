@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:petani_kopi/common/common_animated_order.dart';
-import 'package:petani_kopi/helper/constants.dart';
 import 'package:petani_kopi/model/product.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
-class ShopItems extends StatelessWidget {
+class DashboardItems extends StatelessWidget {
   final Product model;
-  final Function() onDelete;
-  const ShopItems({
+  const DashboardItems({
     Key? key,
     required this.model,
-    required this.onDelete,
   }) : super(key: key);
 
   @override
@@ -92,28 +89,6 @@ class ShopItems extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
-        Positioned(
-          top: 4,
-          right: 4,
-          child: GestureDetector(
-            onTap: () => onDelete(),
-            child: Container(
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                color: backgroundColor.withOpacity(0.7),
-                boxShadow: commonShadow,
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(8),
-                  bottomLeft: Radius.circular(8),
-                ),
-              ),
-              child: const Icon(
-                Icons.close_rounded,
-                color: mainColor,
-              ),
-            ),
           ),
         ),
       ],

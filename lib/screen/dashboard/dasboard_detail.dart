@@ -58,7 +58,7 @@ class _DashboardDetailBodyState extends State<DashboardDetailBody> {
                   padding: const EdgeInsets.all(30.0),
                   child: Text(
                     'Kopi Robusta merupakan keturunan beberapa spesies kopi, terutama Coffea canephora. Jenis kopi ini tumbuh baik di ketinggian 400-700 m dpl, temperatur 21-24° C dengan bulan kering 3-4 bulan secara berturut-turut dan 3-4 kali hujan kiriman. Kualitas buah lebih rendah dari Arabika dan Liberika.',
-                    style: buttomStyle(),
+                    // style: buttomStyle(),
                   )),
               Container(
                   padding: const EdgeInsets.only(left: 20.0, bottom: 10.0),
@@ -66,7 +66,7 @@ class _DashboardDetailBodyState extends State<DashboardDetailBody> {
                     children: [
                       Text(
                         'Arabika',
-                        style: buttomStyle(),
+                        // style: buttomStyle(),
                       ),
                       const SizedBox(
                         width: 270,
@@ -100,7 +100,7 @@ class _DashboardDetailBodyState extends State<DashboardDetailBody> {
                           const SizedBox(height: 4),
                           Text(
                             '\$4.50',
-                            style: buttomStyle(),
+                            // style: buttomStyle(),
                           ),
                         ],
                       ),
@@ -121,7 +121,7 @@ class _DashboardDetailBodyState extends State<DashboardDetailBody> {
                             child: Text(
                               'Add to Cart',
                               textAlign: TextAlign.center,
-                              style: buttomStyle(),
+                              // style: buttomStyle(),
                             ),
                           ),
                         ),

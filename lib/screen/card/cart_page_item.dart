@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:petani_kopi/common/common_animated_order.dart';
-import 'package:petani_kopi/helper/constants.dart';
-import 'package:petani_kopi/model/product.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
+import 'package:petani_kopi/helper/app_scaler.dart';
+import 'package:petani_kopi/helper/constants.dart';
+import 'package:petani_kopi/model/shoplist.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
-class ShopItems extends StatelessWidget {
-  final Product model;
+class ShopListItem extends StatelessWidget {
+  final ShopList model;
   final Function() onDelete;
-  const ShopItems({
+  const ShopListItem({
     Key? key,
     required this.model,
     required this.onDelete,
@@ -19,34 +19,33 @@ class ShopItems extends StatelessWidget {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        Card(
-          elevation: 10,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-          ),
-          child: AnimatedColumn(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8),
-                ),
-                child: SizedBox(
-                  height: 180,
-                  child: BlurHash(
-                    hash: model.imagesHash?[0] ?? '',
-                    image: model.imagesUrl?[0] ?? '',
-                    imageFit: BoxFit.cover,
+        SizedBox(
+          width: context.width(),
+          child: Card(
+            elevation: 10,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(8),
+                      bottomRight: Radius.circular(8),
+                    ),
+                    child: SizedBox(
+                      height: 80,
+                      // width: 80,
+                      child: BlurHash(
+                        hash: model.userImageHash ?? '',
+                        image: model.userImage ?? '',
+                        imageFit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              Material(
-                elevation: 10,
-                borderRadius: const BorderRadius.vertical(
-                  bottom: Radius.circular(8),
-                ),
-                child: Container(
+                Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 3,
@@ -62,7 +61,7 @@ class ShopItems extends StatelessWidget {
                     children: [
                       const SizedBox(height: 4),
                       Text(
-                        model.namaProduct ?? '',
+                        model.userName ?? '',
                         style: const TextStyle(
                           fontSize: 19,
                           fontWeight: FontWeight.w600,
@@ -71,7 +70,7 @@ class ShopItems extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        model.descProduct ?? '',
+                        model.userCity ?? '',
                         style: const TextStyle(
                           fontSize: 12,
                           color: projectGray,
@@ -79,7 +78,7 @@ class ShopItems extends StatelessWidget {
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        ('Rp. ' + (model.hargaProduct ?? '')),
+                        ('Rp. ' + (model.totalPrice ?? '')),
                         style: const TextStyle(
                           color: mainColor,
                           fontSize: 19,
@@ -90,23 +89,21 @@ class ShopItems extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         Positioned(
-          top: 4,
-          right: 4,
+          top: -8,
+          right: -3,
           child: GestureDetector(
             onTap: () => onDelete(),
             child: Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 color: backgroundColor.withOpacity(0.7),
-                boxShadow: commonShadow,
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(8),
-                  bottomLeft: Radius.circular(8),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(8),
                 ),
               ),
               child: const Icon(

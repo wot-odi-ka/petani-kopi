@@ -18,7 +18,9 @@ class Col {
   static const productList = 'ProductList';
   static const onlineStatus = 'OnlineStatus';
   static const friends = 'Friends';
-  static const chats = 'Chats';
+  static const cart = 'Cart';
+  static const cartItem = 'CartItem';
+  static const shopList = 'ShopList';
   static const chatRoom = 'ChatRoom';
   static const friendList = 'FriendList';
   static const allChats = 'AllChats';

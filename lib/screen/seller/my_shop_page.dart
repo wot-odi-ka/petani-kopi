@@ -372,27 +372,6 @@ class _MyShopBodyState extends State<MyShopBody> {
                           ),
                         ),
                         const SizedBox(height: 12),
-                        // const SizedBox(height: 12),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(right: 24.0),
-                        //   child: Row(
-                        //     children: [
-                        //       Expanded(
-                        //         child: CommonProductField2(
-                        //           node: searchNode,
-                        //           controller: searchCo,
-                        //           hint: 'Search',
-                        //           onChange: (v) => onChangeHandler(v),
-                        //         ),
-                        //       ),
-                        //       const SizedBox(width: 12),
-                        //       const Icon(
-                        //         IconlyLight.search,
-                        //         color: projectWhite,
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),

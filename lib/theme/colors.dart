@@ -9,6 +9,7 @@ const Color googleColor = Color(0xFFDE4B39);
 const Color backgroundColor = Color(0xFFECF3F9);
 const Color mainColor = Color(0xFF0d1015);
 const Color mainColor1 = Color(0xFF286090);
+const Color dashboardColor = Color(0xFF0d1015);
 const projectBackground = Color(0xffffffff);
 const projectLightBlue = Color(0xFF03A9F4);
 const projectPrimary = Color(0xff79B4B7);

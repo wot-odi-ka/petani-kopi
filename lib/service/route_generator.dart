@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:petani_kopi/screen/card/cart.dart';
+import 'package:petani_kopi/screen/card/cart_page.dart';
 import 'package:petani_kopi/screen/card/notification.dart';
 import 'package:petani_kopi/screen/card/payment.dart';
 import 'package:petani_kopi/screen/card/payment_success.dart';
@@ -38,7 +39,7 @@ class RouteGenerator {
           );
         case Pages.cardPage:
           return CupertinoPageRoute(
-            builder: (_) => const CardPage(),
+            builder: (_) => const CartPage(),
           );
         case Pages.profilPage:
           return CupertinoPageRoute(

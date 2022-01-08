@@ -16,6 +16,7 @@ class DashboardField extends StatefulWidget {
   final int? maxLines;
   final Widget? prefixIcon;
   final FloatingLabelBehavior behavior;
+  final Function(String)? onChange;
   const DashboardField({
     Key? key,
     this.controller,
@@ -31,6 +32,7 @@ class DashboardField extends StatefulWidget {
     this.onTap,
     this.prefixIcon,
     this.behavior = FloatingLabelBehavior.never,
+    this.onChange,
   }) : super(key: key);
 
   @override
@@ -45,6 +47,7 @@ class _DashboardFieldState extends State<DashboardField> {
       controller: widget.controller ?? TextEditingController(),
       minLines: widget.minLines,
       maxLines: widget.maxLines,
+      onChanged: widget.onChange,
       style: TextStyle(
         fontSize: 15,
         color: Colors.white,

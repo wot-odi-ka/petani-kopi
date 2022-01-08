@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:petani_kopi/firebase_query.dart/query_key.dart';
 import 'package:petani_kopi/model/product.dart';
+import 'package:petani_kopi/model/shoplist.dart';
+import 'package:petani_kopi/model/users.dart';
 
 class ProductQuery {
   static updateProduct(Product product) async {
@@ -44,6 +46,36 @@ class ProductQuery {
     }
   }
 
+  static getDashboardProduct(Map<String, dynamic> map) async {
+    String type = map['jenisKopi'];
+    if (type.isNotEmpty) {
+      return FirebaseFirestore.instance
+          .collection(Col.product)
+          // .where('userId', isEqualTo: map['userId'])
+          .where('jenisKopi', isEqualTo: map['jenisKopi'])
+          .where('productSearch', arrayContains: map['searchVal'])
+          .snapshots();
+    } else {
+      return FirebaseFirestore.instance
+          .collection(Col.product)
+          // .where('userId', isEqualTo: map['userId'])
+          .where('productSearch', arrayContains: map['searchVal'])
+          .snapshots();
+    }
+  }
+
+  static getProductById(String productId) async {
+    QuerySnapshot snap = await FirebaseFirestore.instance
+        .collection(Col.product)
+        .where(ProdKey.productId, isEqualTo: productId)
+        .get()
+        .catchError((e) => throw e);
+
+    var map = snap.docs[0].data() as Map<String, dynamic>;
+
+    return Product.fromSearch(map);
+  }
+
   static deleteProduct(Product product) async {
     return FirebaseFirestore.instance
         .collection(Col.product)
@@ -51,28 +83,44 @@ class ProductQuery {
         .delete();
   }
 
-  static Future<List<Product>> getRandomSearchProduct() async {
-    List<Product> products = [];
-    var col = FirebaseFirestore.instance.collection(Col.productSearch);
-    QuerySnapshot snap = await col.get();
-    for (var element in snap.docs) {
-      var map = element.data() as Map<String, dynamic>;
-      products.add(Product.fromSearch(map));
-    }
-    products.shuffle();
-    return products;
+  static addShopList(ShopList model, Users user) async {
+    await FirebaseFirestore.instance
+        .collection(Col.cart)
+        .doc(user.userId)
+        .collection(Col.shopList)
+        .doc(model.userId)
+        .set(model.toMap())
+        .catchError((e) => throw e);
   }
-}
 
-class ProductQueryHelper {
-  static getAllDocumentId() async {
-    List<String> result = [];
-    var col = FirebaseFirestore.instance.collection(Col.productSearch);
-    var snapshot = await col.get();
-    for (var element in snapshot.docs) {
-      result.add(element.id);
-    }
-    debugPrint(result.toString());
-    return result;
+  static uploadCart(Product product, Users user) async {
+    await FirebaseFirestore.instance
+        .collection(Col.cart)
+        .doc(user.userId)
+        .collection(Col.cartItem)
+        .add(product.toCart())
+        .catchError((e) => throw e);
+  }
+
+  static getShopList(Users user) {
+    return FirebaseFirestore.instance
+        .collection(Col.cart)
+        .doc(user.userId)
+        .collection(Col.shopList)
+        .snapshots();
+  }
+
+  static cartDeleteAll(Users user, ShopList model) {
+    return FirebaseFirestore.instance
+        .collection(Col.cart)
+        .doc(user.userId)
+        .collection(Col.cartItem)
+        .where('userId', isEqualTo: model.userId)
+        .get()
+        .then((value) async {
+      for (var element in value.docs) {
+        await element.reference.delete();
+      }
+    });
   }
 }
