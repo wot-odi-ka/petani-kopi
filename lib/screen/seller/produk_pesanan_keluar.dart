@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-class ProductPesanan extends StatelessWidget {
-  const ProductPesanan(TabController tabController, {Key? key})
+class ProdukPesananKeluar extends StatelessWidget {
+  const ProdukPesananKeluar(TabController tabController, {Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const ProductPesananBoddy();
+    return const ProdukPesananKeluarBoddy();
   }
 }
 
-class ProductPesananBoddy extends StatefulWidget {
-  const ProductPesananBoddy({Key? key}) : super(key: key);
+class ProdukPesananKeluarBoddy extends StatefulWidget {
+  const ProdukPesananKeluarBoddy({Key? key}) : super(key: key);
 
   @override
-  _ProductPesananBoddyState createState() => _ProductPesananBoddyState();
+  _ProdukPesananKeluarBoddyState createState() =>
+      _ProdukPesananKeluarBoddyState();
 }
 
-class _ProductPesananBoddyState extends State<ProductPesananBoddy> {
+class _ProdukPesananKeluarBoddyState extends State<ProdukPesananKeluarBoddy> {
   @override
   Widget build(BuildContext context) {
     return Padding(

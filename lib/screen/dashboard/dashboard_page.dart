@@ -325,7 +325,7 @@ class _DashboardBodyState extends State<DashboardBody> {
     return CommonDetailAnimation(
       color: Colors.transparent,
       detail: DashboardItemDetail(model: Product.fromSearch(map)),
-      child: DashboardItems(model: Product.fromSearch(map)),
+      child: DashboardItems(model: Product.fromCart(map)),
     );
   }
 

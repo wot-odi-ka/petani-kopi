@@ -14,6 +14,12 @@ class InitCartLoaded extends CartState {
   InitCartLoaded(this.shops);
 }
 
+class CartItemLoaded extends CartState {
+  final Stream<QuerySnapshot> carts;
+
+  CartItemLoaded(this.carts);
+}
+
 class ShopListDeleted extends CartState {}
 
 class CartOnFailed extends CartState {

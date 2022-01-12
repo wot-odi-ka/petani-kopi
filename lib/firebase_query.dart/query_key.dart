@@ -21,6 +21,7 @@ class Col {
   static const cart = 'Cart';
   static const cartItem = 'CartItem';
   static const shopList = 'ShopList';
+  static const orderList = 'OrderList';
   static const chatRoom = 'ChatRoom';
   static const friendList = 'FriendList';
   static const allChats = 'AllChats';

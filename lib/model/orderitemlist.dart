@@ -1,4 +1,4 @@
-class ShopList {
+class OrderList {
   String? userId;
   String? userName;
   String? userMail;
@@ -12,11 +12,7 @@ class ShopList {
   String? rekening;
   String? totalPrice;
 
-  //helper
-  int? index;
-  bool? isExpand;
-
-  ShopList({
+  OrderList({
     this.userId,
     this.userName,
     this.userMail,
@@ -29,8 +25,6 @@ class ShopList {
     this.noRekening,
     this.rekening,
     this.totalPrice,
-    this.index = 0,
-    this.isExpand = false,
   });
 
   Map<String, dynamic> toMap() {
@@ -49,7 +43,7 @@ class ShopList {
     return map;
   }
 
-  ShopList.map(Map<String, dynamic> json) {
+  OrderList.map(Map<String, dynamic> json) {
     userId = json['userId'];
     userName = json['userName'];
     userMail = json['userMail'];

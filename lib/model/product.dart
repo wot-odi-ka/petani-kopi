@@ -154,4 +154,43 @@ class Product {
     map["itemCount"] = itemCount;
     return map;
   }
+
+  Product.fromCart(Map<String, dynamic> json) {
+    productId = json['productId'];
+    namaProduct = json['namaProduct'];
+    descProduct = json['descProduct'];
+    hargaProduct = json['hargaProduct'];
+    jenisKopi = json['jenisKopi'];
+    userImage = json['userImage'];
+    userName = json['userName'];
+    userImageHash = json['userImageHash'];
+    userCity = json['userCity'];
+    userId = json['userId'];
+    totalPrice = json['totalPrice'];
+    itemCount = json['itemCount'];
+    if (json['imagesHash'].isNotEmpty) {
+      imagesHash = [];
+      json['imagesHash'].forEach((e) {
+        imagesHash!.add(e);
+      });
+    }
+    if (json['imagesUrl'].isNotEmpty) {
+      imagesUrl = [];
+      json['imagesUrl'].forEach((e) {
+        imagesUrl!.add(e);
+      });
+    }
+    if (json['imagesUrl'].isNotEmpty) {
+      nameSearch = [];
+      json['nameSearch'].forEach((e) {
+        nameSearch!.add(e);
+      });
+    }
+    if (json['imagesUrl'].isNotEmpty) {
+      productSearch = [];
+      json['productSearch'].forEach((e) {
+        productSearch!.add(e);
+      });
+    }
+  }
 }

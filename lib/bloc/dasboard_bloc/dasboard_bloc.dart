@@ -4,6 +4,7 @@ import 'package:petani_kopi/bloc/dasboard_bloc/dasboard_event.dart';
 import 'package:petani_kopi/bloc/dasboard_bloc/dasboard_state.dart';
 import 'package:petani_kopi/firebase_query.dart/login_query.dart';
 import 'package:petani_kopi/firebase_query.dart/product_query.dart';
+import 'package:petani_kopi/model/cart_model.dart';
 import 'package:petani_kopi/model/product.dart';
 import 'package:petani_kopi/model/shoplist.dart';
 import 'package:petani_kopi/model/users.dart';
@@ -33,8 +34,7 @@ class DasboardBloc extends Bloc<DasboardEvent, DasboardState> {
         emit(GetProductSucsess(product));
       } else if (event is AddToCartEvent) {
         emit(AddCartSubmittin());
-        await getOwnerData(event.product);
-        await uploadCart(event.product);
+        await getOwnerData2(event.product);
         emit(AddCartSubmitted());
       }
     } catch (e) {
@@ -59,6 +59,22 @@ class DasboardBloc extends Bloc<DasboardEvent, DasboardState> {
     ShopList data = ShopList.map(shopOwner.toMap());
     data.totalPrice = product.totalPrice;
     await ProductQuery.addShopList(data, user);
+  }
+
+  Future<void> getOwnerData2(Product product) async {
+    shopOwner = await LogQuery.getUsersById(product.userId!);
+    bool isEmpty = await ProductQuery.cartIsEmpty(
+      user.userId!,
+      product.userId!,
+    );
+    CartModel model = CartModel.fromProduct(shopOwner.toMap());
+    model.list = [];
+    model.list!.add(product);
+    if (isEmpty) {
+      ProductQuery.newCart(model, user.userId!);
+    } else if (!isEmpty) {
+      ProductQuery.addCartList(model, user.userId!);
+    }
   }
 
   Future<void> uploadCart(Product product) async {

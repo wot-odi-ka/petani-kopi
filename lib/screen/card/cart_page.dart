@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:iconly/iconly.dart';
 import 'package:petani_kopi/bloc/cart_bloc/cart_bloc.dart';
 import 'package:petani_kopi/bloc/cart_bloc/cart_event.dart';
 import 'package:petani_kopi/bloc/cart_bloc/cart_state.dart';
@@ -146,6 +147,8 @@ class _CartBodyState extends State<CartBody> {
                               children: [
                                 Flexible(
                                   child: EmptyProducts(
+                                    text: 'No product yet',
+                                    icon: IconlyLight.info_circle,
                                     onTap: () {},
                                   ),
                                 ),
@@ -179,8 +182,14 @@ class _CartBodyState extends State<CartBody> {
     required int deletedIndex,
   }) {
     var map = query.data() as Map<String, dynamic>;
+    var models = ShopList.map(map);
     return ShopListItem(
-      model: ShopList.map(map),
+      model: models,
+      onTapItem: () {
+        // models.isExpand = !models.isExpand;
+        models.isExpand ??= true;
+        setState(() {});
+      },
       onDelete: () {
         context.showAlertDialog(
           onTapYes: () {
