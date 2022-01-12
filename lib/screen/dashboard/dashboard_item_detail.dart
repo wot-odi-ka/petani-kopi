@@ -13,6 +13,7 @@ import 'package:petani_kopi/common/common_loading.dart';
 import 'package:petani_kopi/common/common_shimmer.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
 import 'package:petani_kopi/helper/constants.dart';
+import 'package:petani_kopi/helper/page.dart';
 import 'package:petani_kopi/helper/snack_bar.dart';
 import 'package:petani_kopi/helper/utils.dart';
 import 'package:petani_kopi/model/product.dart';
@@ -91,6 +92,12 @@ class _DashboardItemDetailBodyState extends State<DashboardItemDetailBody>
             images.add(arg);
           }
           setState(() {});
+        }
+        if (state is AddCartSubmitted) {
+          Jump.replace(Pages.homePage);
+        }
+        if (state is DasboardFiled) {
+          context.fail(state.error);
         }
       },
       child: child,

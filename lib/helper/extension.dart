@@ -6,3 +6,13 @@ extension NextFocus on BuildContext {
     node.requestFocus();
   }
 }
+
+extension CommonString on String {
+  String removeDot() {
+    return (this).replaceAll('.', '');
+  }
+
+  int dotParse() {
+    return int.parse((this).removeDot());
+  }
+}

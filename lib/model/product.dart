@@ -13,6 +13,7 @@ class Product {
 
   //helper
   List<File>? initImage;
+  bool? isChecked;
 
   //cart
   String? totalPrice;
@@ -39,6 +40,7 @@ class Product {
     //helper
     this.userId,
     this.initImage,
+    this.isChecked = false,
 
     //cart
     this.totalPrice,
@@ -180,16 +182,53 @@ class Product {
         imagesUrl!.add(e);
       });
     }
-    if (json['imagesUrl'].isNotEmpty) {
+    if (json['nameSearch'].isNotEmpty) {
       nameSearch = [];
       json['nameSearch'].forEach((e) {
         nameSearch!.add(e);
       });
     }
-    if (json['imagesUrl'].isNotEmpty) {
+    if (json['productSearch'].isNotEmpty) {
       productSearch = [];
       json['productSearch'].forEach((e) {
         productSearch!.add(e);
+      });
+    }
+  }
+
+  Map<String, dynamic> toCartList() {
+    Map<String, dynamic> map = {};
+    map["namaProduct"] = namaProduct;
+    map["descProduct"] = descProduct;
+    map["hargaProduct"] = hargaProduct;
+    map["jenisKopi"] = jenisKopi;
+    map["imagesHash"] = imagesHash;
+    map["imagesUrl"] = imagesUrl;
+    map["productId"] = productId;
+    map["totalPrice"] = totalPrice;
+    map["itemCount"] = itemCount;
+    return map;
+  }
+
+  Product.fromCartList(Map<String, dynamic> json) {
+    productId = json['productId'];
+    namaProduct = json['namaProduct'];
+    descProduct = json['descProduct'];
+    hargaProduct = json['hargaProduct'];
+    jenisKopi = json['jenisKopi'];
+    totalPrice = json['totalPrice'];
+    itemCount = json['itemCount'];
+    isChecked = false;
+    if (json['imagesHash'].isNotEmpty) {
+      imagesHash = [];
+      json['imagesHash'].forEach((e) {
+        imagesHash!.add(e);
+      });
+    }
+    if (json['imagesUrl'].isNotEmpty) {
+      imagesUrl = [];
+      json['imagesUrl'].forEach((e) {
+        imagesUrl!.add(e);
       });
     }
   }

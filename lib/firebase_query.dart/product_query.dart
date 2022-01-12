@@ -53,14 +53,14 @@ class ProductQuery {
     if (type.isNotEmpty) {
       return FirebaseFirestore.instance
           .collection(Col.product)
-          // .where('userId', isEqualTo: map['userId'])
+          // .where('userId', isNotEqualTo: map['userId'])
           .where('jenisKopi', isEqualTo: map['jenisKopi'])
           .where('productSearch', arrayContains: map['searchVal'])
           .snapshots();
     } else {
       return FirebaseFirestore.instance
           .collection(Col.product)
-          // .where('userId', isEqualTo: map['userId'])
+          // .where('userId', isNotEqualTo: map['userId'])
           .where('productSearch', arrayContains: map['searchVal'])
           .snapshots();
     }
@@ -186,9 +186,18 @@ class ProductQuery {
         .catchError((e) => throw e);
   }
 
+  static deleteCartAll(CartModel model, String userId) {
+    FirebaseFirestore.instance
+        .collection(Col.cart)
+        .doc(userId)
+        .collection(Col.cartItem)
+        .doc(model.shopId)
+        .delete();
+  }
+
   static addCartList(CartModel model, String userId) {
     List<Map<String, dynamic>> mapList = [];
-    mapList.addAll(model.list!.map((e) => e.toCart()).toList());
+    mapList.addAll(model.list!.map((e) => e.toCartList()).toList());
     FirebaseFirestore.instance
         .collection(Col.cart)
         .doc(userId)
@@ -197,5 +206,22 @@ class ProductQuery {
         .update({
       'cartList': FieldValue.arrayUnion(mapList),
     }).catchError((e) => throw e);
+  }
+
+  static Future<List<CartModel>> getCartList(String userId) async {
+    List<CartModel> models = [];
+    QuerySnapshot snap = await FirebaseFirestore.instance
+        .collection(Col.cart)
+        .doc(userId)
+        .collection(Col.cartItem)
+        .get()
+        .catchError((e) => throw e);
+
+    for (var i = 0; i < snap.docs.length; i++) {
+      var map = snap.docs[i].data() as Map<String, dynamic>;
+      models.add(CartModel.fromCartItem(map));
+    }
+
+    return models;
   }
 }

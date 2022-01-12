@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> pages = [
     const DashboardPage(),
     const CartPage(),
-    const SearchPage(),
+    // const SearchPage(),
     const ProfilePage()
   ];
 
@@ -63,11 +63,11 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.shopping_bag_outlined, size: 23),
             title: const Text('Cart'),
           ),
-          FlashyTabBarItem(
-            activeColor: Colors.brown,
-            icon: const Icon(Icons.search, size: 23),
-            title: const Text('Search'),
-          ),
+          // FlashyTabBarItem(
+          //   activeColor: Colors.brown,
+          //   icon: const Icon(Icons.search, size: 23),
+          //   title: const Text('Search'),
+          // ),
           FlashyTabBarItem(
             activeColor: Colors.brown,
             icon: const Icon(
