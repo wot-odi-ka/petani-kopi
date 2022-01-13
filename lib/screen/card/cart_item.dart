@@ -143,12 +143,9 @@ class _CartItemBodyState extends State<CartItemBody> {
                           onChecked: (p0) {
                             setState(() {
                               e.isChecked = p0;
-                              if (widget.model.list!.every(
-                                  (element) => element.isChecked == true)) {
-                                widget.model.isChecked = true;
-                              } else {
-                                widget.model.isChecked = false;
-                              }
+                              widget.model.isChecked = widget.model.list!.any(
+                                (element) => element.isChecked == true,
+                              );
                             });
                             widget.onChangePrice();
                           },

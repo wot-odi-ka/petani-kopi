@@ -6,6 +6,7 @@ import 'package:iconly/iconly.dart';
 import 'package:petani_kopi/bloc/cart_bloc/cart_bloc.dart';
 import 'package:petani_kopi/bloc/cart_bloc/cart_event.dart';
 import 'package:petani_kopi/bloc/cart_bloc/cart_state.dart';
+import 'package:petani_kopi/common/bottomsheet_button.dart';
 import 'package:petani_kopi/common/common_alert_dialog.dart';
 import 'package:petani_kopi/common/common_empty_shop.dart';
 import 'package:petani_kopi/common/common_expanded.dart';
@@ -94,7 +95,14 @@ class _CartBodyState extends State<CartBody> {
     return blocListener(
       child: Scaffold(
         backgroundColor: dashboardColor,
-        bottomNavigationBar: bottomSheet(),
+        bottomNavigationBar: BottomCheckoutButton(
+          price: CartUtils.countCheckout(cartList),
+          buttonText: 'Checkout',
+          onTap: () => Jump.toArg(
+            Pages.paymentPage,
+            CartUtils().checkoutFilter(cartList),
+          ).then((_) => bloc(InitCartShopList())),
+        ),
         body: bodyBuilder(
           child: SizedBox(
             height: context.height(),
@@ -113,7 +121,7 @@ class _CartBodyState extends State<CartBody> {
                         style: TextStyle(
                           color: backgroundColor,
                           fontSize: 28,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
@@ -139,7 +147,8 @@ class _CartBodyState extends State<CartBody> {
                           deleteEvent: (model) {
                             if (model.list!.isEmpty) {
                               cartList.removeWhere(
-                                  (element) => element.shopId == model.shopId);
+                                (element) => element.shopId == model.shopId,
+                              );
                               setState(() {});
                             }
                           },
@@ -152,81 +161,6 @@ class _CartBodyState extends State<CartBody> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget bottomSheet() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Text(
-                "IDR",
-                textAlign: TextAlign.left,
-                style: ButtomStyle().copyWith(
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                CartUtils.countCheckout(checkedCartList),
-                textAlign: TextAlign.left,
-                style: ButtomStyle().copyWith(
-                  fontSize: 28,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 4.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 12,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.brown[800],
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(25)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 2.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Checkout',
-                                textAlign: TextAlign.left,
-                                style: ButtomStyle().copyWith(
-                                  fontSize: 16,
-                                ),
-                              ),
-                              const Icon(
-                                IconlyLight.buy,
-                                color: projectWhite,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

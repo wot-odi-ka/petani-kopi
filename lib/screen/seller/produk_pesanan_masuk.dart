@@ -8,6 +8,7 @@ import 'package:petani_kopi/common/common_loading.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
 import 'package:petani_kopi/model/orderitemlist.dart';
 import 'package:petani_kopi/model/product.dart';
+import 'package:petani_kopi/model/shoplist.dart';
 import 'package:petani_kopi/screen/seller/my_order_items.dart';
 
 class PesananMasukPage extends StatefulWidget {
@@ -44,8 +45,13 @@ class _PesananMasukBoddyState extends State<PesananMasukBoddy> {
     required int deletedIndex,
   }) {
     var map = query.data() as Map<String, dynamic>;
+    var models = ShopList.map(map);
     return MyOrderItem(
-      model: Product.fromSearch(map),
+      model: models,
+      onTapItem: () {
+        models.isExpand ??= true;
+        setState(() {});
+      },
       onDelete: () {
         context.showAlertDialog(
           onTapYes: () {

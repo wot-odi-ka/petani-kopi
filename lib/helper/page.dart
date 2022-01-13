@@ -14,4 +14,5 @@ class Pages {
   static const tambahProduct = 'tambahProduct';
   static const editProfile = 'editProfile';
   static const myOrder = 'myOrder';
+  static const paymentPage = 'paymentPage';
 }

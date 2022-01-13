@@ -1,15 +1,16 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:flutter/cupertino.dart';
+import 'package:petani_kopi/model/cart_model.dart';
 import 'package:petani_kopi/screen/card/cart.dart';
 import 'package:petani_kopi/screen/card/cart_page.dart';
 import 'package:petani_kopi/screen/card/notification.dart';
-import 'package:petani_kopi/screen/card/payment.dart';
 import 'package:petani_kopi/screen/card/payment_success.dart';
 import 'package:petani_kopi/screen/dashboard/dashboard_page.dart';
 import 'package:petani_kopi/helper/page.dart';
 import 'package:petani_kopi/screen/home/home_page.dart';
 import 'package:petani_kopi/screen/login/login_main.dart';
+import 'package:petani_kopi/screen/payment_screen/payment_page.dart';
 import 'package:petani_kopi/screen/profil/edit_profile.dart';
 import 'package:petani_kopi/screen/profil/profil_page.dart';
 import 'package:petani_kopi/screen/profil/setting_page.dart';
@@ -34,10 +35,10 @@ class RouteGenerator {
           return CupertinoPageRoute(
             builder: (_) => const DashboardPage(),
           );
-        case Pages.confrimOrder:
-          return CupertinoPageRoute(
-            builder: (_) => const PaymentPage(),
-          );
+        // case Pages.confrimOrder:
+        //   return CupertinoPageRoute(
+        //     builder: (_) => const PaymentPage(),
+        //   );
         case Pages.cardPage:
           return CupertinoPageRoute(
             builder: (_) => const CartPage(),
@@ -78,6 +79,11 @@ class RouteGenerator {
         case Pages.tambahProduct:
           return CupertinoPageRoute(
             builder: (_) => const TambahProductPage(),
+          );
+        case Pages.paymentPage:
+          var models = settings.arguments as List<CartModel>;
+          return CupertinoPageRoute(
+            builder: (_) => PaymentPage(checkedCartList: models),
           );
         default:
           return CupertinoPageRoute(

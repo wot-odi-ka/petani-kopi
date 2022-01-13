@@ -12,6 +12,9 @@ class OrderList {
   String? rekening;
   String? totalPrice;
 
+  int? index;
+  bool? isExpand;
+
   OrderList({
     this.userId,
     this.userName,
@@ -25,6 +28,8 @@ class OrderList {
     this.noRekening,
     this.rekening,
     this.totalPrice,
+    this.index = 0,
+    this.isExpand = false,
   });
 
   Map<String, dynamic> toMap() {

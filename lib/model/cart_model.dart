@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:petani_kopi/helper/extension.dart';
 import 'package:petani_kopi/helper/utils.dart';
 import 'package:petani_kopi/model/product.dart';
@@ -14,6 +16,7 @@ class CartModel {
   int? index;
   bool? isExpand;
   bool? isChecked;
+  File? receiptFile;
 
   CartModel({
     this.shopId,
@@ -25,6 +28,7 @@ class CartModel {
     this.shopLocation,
     this.shopName,
     this.isChecked,
+    this.receiptFile,
   });
 
   CartModel.fromProduct(Map<String, dynamic> json) {
@@ -92,15 +96,31 @@ class CartUtils {
     return setupSeparator(result);
   }
 
-  static List<CartModel> checkoutFilter(List<CartModel> carts) {
-    for (var i = 0; i < carts.length; i++) {
-      for (var x = 0; x < carts[i].list!.length; x++) {
-        if (carts[i].list![x].isChecked!) {
-          carts[i].list!.removeWhere((element) => element.isChecked == false);
+  List<CartModel> checkoutFilter(List<CartModel> carts) {
+    final List<CartModel> newList = [];
+    newList.addAll(carts);
+    for (var i = 0; i < newList.length; i++) {
+      newList.removeWhere((element) => element.isChecked == false);
+      for (var x = 0; x < newList[i].list!.length; x++) {
+        if (newList[i].list![x].isChecked!) {
+          newList[i].list!.removeWhere((element) => element.isChecked == false);
         }
       }
     }
 
-    return carts;
+    return newList;
+  }
+
+  static String countCheckout2(List<CartModel> carts) {
+    int result = 0;
+    for (var i = 0; i < carts.length; i++) {
+      for (var x = 0; x < carts[i].list!.length; x++) {
+        if (carts[i].list![x].isChecked!) {
+          int price = carts[i].list![x].totalPrice!.dotParse();
+          result = result + price;
+        }
+      }
+    }
+    return setupSeparator(result);
   }
 }
