@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:petani_kopi/common/common_expanded.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
-import 'package:petani_kopi/model/orderitemlist.dart';
 import 'package:petani_kopi/model/shoplist.dart';
 import 'package:petani_kopi/screen/card/cart_expand_item.dart';
 import 'package:petani_kopi/theme/colors.dart';

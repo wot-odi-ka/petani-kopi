@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
 class EmptyProducts extends StatelessWidget {
   final Function() onTap;
   final String text;
   final IconData icon;
+  final Color textColor;
+  final Color bodyColor;
   const EmptyProducts({
     Key? key,
     required this.onTap,
     this.text = 'Click to add Products',
     this.icon = Icons.add,
+    this.textColor = backgroundColor,
+    this.bodyColor = mainColor,
   }) : super(key: key);
 
   @override
@@ -27,7 +30,7 @@ class EmptyProducts extends StatelessWidget {
       ),
       child: Material(
         elevation: 5,
-        color: mainColor,
+        color: bodyColor,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(8),
           topRight: Radius.circular(8),
@@ -44,14 +47,14 @@ class EmptyProducts extends StatelessWidget {
               children: [
                 Icon(
                   icon,
-                  color: backgroundColor,
+                  color: textColor,
                   size: 24,
                 ),
                 const SizedBox(height: 10),
                 Text(
                   text,
-                  style: const TextStyle(
-                    color: backgroundColor,
+                  style: TextStyle(
+                    color: textColor,
                     fontWeight: FontWeight.w300,
                   ),
                 )

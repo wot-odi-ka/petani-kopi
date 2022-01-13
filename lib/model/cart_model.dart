@@ -17,6 +17,8 @@ class CartModel {
   bool? isExpand;
   bool? isChecked;
   File? receiptFile;
+  String? receiptHash;
+  String? receiptUrl;
 
   CartModel({
     this.shopId,
@@ -29,6 +31,8 @@ class CartModel {
     this.shopName,
     this.isChecked,
     this.receiptFile,
+    this.receiptHash,
+    this.receiptUrl,
   });
 
   CartModel.fromProduct(Map<String, dynamic> json) {
@@ -46,6 +50,21 @@ class CartModel {
     map["shopImage"] = shopImage;
     map["shopImageHash"] = shopImageHash;
     map["shopLocation"] = shopLocation;
+    if (list != null) {
+      map['cartList'] = list!.map((e) => e.toCartList()).toList();
+    }
+    return map;
+  }
+
+  Map<String, dynamic> toOrder() {
+    Map<String, dynamic> map = {};
+    map["shopId"] = shopId;
+    map["shopName"] = shopName;
+    map["shopImage"] = shopImage;
+    map["shopImageHash"] = shopImageHash;
+    map["shopLocation"] = shopLocation;
+    map["receiptUrl"] = receiptUrl;
+    map["receiptHash"] = receiptHash;
     if (list != null) {
       map['cartList'] = list!.map((e) => e.toCartList()).toList();
     }

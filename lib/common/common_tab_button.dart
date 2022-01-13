@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:petani_kopi/theme/colors.dart';
 
 class CommonTabButton extends StatelessWidget {
   final String text;

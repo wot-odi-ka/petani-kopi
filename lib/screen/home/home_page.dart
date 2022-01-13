@@ -1,8 +1,6 @@
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
-import 'package:petani_kopi/screen/card/cart.dart';
 import 'package:petani_kopi/screen/card/cart_page.dart';
-import 'package:petani_kopi/screen/card/search_page.dart';
 import 'package:petani_kopi/screen/dashboard/dashboard_page.dart';
 import 'package:petani_kopi/screen/profil/profil_page.dart';
 

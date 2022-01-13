@@ -1,13 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:petani_kopi/animation/common_detail.dart';
 import 'package:petani_kopi/common/common_alert_dialog.dart';
 import 'package:petani_kopi/common/common_empty_shop.dart';
 import 'package:petani_kopi/common/common_loading.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
-import 'package:petani_kopi/model/orderitemlist.dart';
-import 'package:petani_kopi/model/product.dart';
 import 'package:petani_kopi/model/shoplist.dart';
 import 'package:petani_kopi/screen/seller/my_order_items.dart';
 

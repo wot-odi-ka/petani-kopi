@@ -18,3 +18,9 @@ class CartListDeleteEvent extends CartEvent {
 
   CartListDeleteEvent(this.model);
 }
+
+class PaymentSubmitEvent extends CartEvent {
+  final CartModel model;
+
+  PaymentSubmitEvent(this.model);
+}

@@ -1,9 +1,11 @@
 import 'dart:async';
-
+import 'dart:io';
+import 'package:path/path.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:petani_kopi/firebase_query.dart/query_key.dart';
 import 'package:petani_kopi/model/users.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 userToChats(Map<String, dynamic> map) {
   Users chat = Users();
@@ -135,4 +137,14 @@ List<String> generateSearchList({required String data}) {
 String setupSeparator(int value) {
   NumberFormat numberFormat = NumberFormat.decimalPattern('IDR');
   return numberFormat.format(value);
+}
+
+Future<String> singleUpload(File file) async {
+  String fileName = basename(file.path);
+  Reference ref = FirebaseStorage.instance.ref().child(fileName);
+  UploadTask uploadTask = ref.putFile(file);
+  TaskSnapshot task = await uploadTask.whenComplete(() => null);
+  return await task.ref.getDownloadURL().then((val) {
+    return val;
+  });
 }

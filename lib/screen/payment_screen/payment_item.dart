@@ -1,21 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:iconly/iconly.dart';
-import 'package:petani_kopi/bloc/cart_bloc/cart_bloc.dart';
-import 'package:petani_kopi/bloc/cart_bloc/cart_event.dart';
-import 'package:petani_kopi/bloc/cart_bloc/cart_state.dart';
 import 'package:petani_kopi/common/common_animated_order.dart';
 import 'package:petani_kopi/common/common_detail_animation.dart';
 import 'package:petani_kopi/common/common_expanded.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
-import 'package:petani_kopi/helper/extension.dart';
-import 'package:petani_kopi/helper/utils.dart';
 import 'package:petani_kopi/model/cart_model.dart';
 import 'package:petani_kopi/model/product.dart';
-import 'package:petani_kopi/screen/card/cart_expand_item.dart';
 import 'package:petani_kopi/screen/dashboard/dashboard_page.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
@@ -162,6 +155,7 @@ class _PaymentListBodyState extends State<PaymentListBody> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
                   onTap: () => widget.onTapImage(),
@@ -180,7 +174,7 @@ class _PaymentListBodyState extends State<PaymentListBody> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Upload Receipt',
+                            'Receipt',
                             textAlign: TextAlign.left,
                             style: ButtomStyle().copyWith(
                               fontSize: 16,

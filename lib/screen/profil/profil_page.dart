@@ -205,6 +205,36 @@ class _ProfileBodyState extends State<ProfileBody> {
                         ),
                         const SizedBox(height: 8),
                         shopTile(user.userIsSeller ?? false),
+                        Column(
+                          children: [
+                            const SizedBox(height: 8),
+                            Card(
+                              elevation: 5,
+                              child: ListTile(
+                                onTap: () => Jump.to(Pages.myOrder),
+                                leading: const Icon(
+                                  IconlyLight.buy,
+                                  color: mainColor,
+                                ),
+                                title: Transform.translate(
+                                  offset: const Offset(-16, -0),
+                                  child: const Text(
+                                    'My Order',
+                                    style: TextStyle(
+                                      color: mainColor,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                                trailing: const Icon(
+                                  IconlyLight.arrow_right_2,
+                                  color: mainColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         Visibility(
                           visible: user.userIsSeller ?? false,
                           child: Column(
@@ -213,7 +243,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                               Card(
                                 elevation: 5,
                                 child: ListTile(
-                                  onTap: () => Jump.to(Pages.myOrder),
+                                  onTap: () => Jump.to(Pages.incomingOrder),
                                   leading: const Icon(
                                     IconlyLight.buy,
                                     color: mainColor,
@@ -221,7 +251,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                                   title: Transform.translate(
                                     offset: const Offset(-16, -0),
                                     child: const Text(
-                                      'My Order',
+                                      'Incoming Order',
                                       style: TextStyle(
                                         color: mainColor,
                                         fontSize: 16,

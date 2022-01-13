@@ -28,6 +28,8 @@ class Col {
   static const chatData = 'ChatData';
   static const isInRoom = 'IsInRoom';
   static const productSearch = 'ProductSearch';
+  static const incomingOrder = 'IncomingOrder';
+  static const outComingOrder = 'OutComingOrder';
 }
 
 class ProdKey {

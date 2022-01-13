@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,17 +19,14 @@ import 'package:petani_kopi/common/common_animated_switcher.dart';
 import 'package:petani_kopi/common/common_detail_animation.dart';
 import 'package:petani_kopi/common/common_empty_shop.dart';
 import 'package:petani_kopi/common/common_loading.dart';
-import 'package:petani_kopi/common/common_profile_tile.dart';
 import 'package:petani_kopi/common/common_shimmer.dart';
 import 'package:petani_kopi/common/common_tab_button.dart';
-import 'package:petani_kopi/common/shared_profile_field.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
 import 'package:petani_kopi/helper/constants.dart';
 import 'package:petani_kopi/helper/page.dart';
 import 'package:petani_kopi/model/product.dart';
 import 'package:petani_kopi/model/typebar_model.dart';
 import 'package:petani_kopi/model/users.dart';
-import 'package:petani_kopi/screen/profil/common_profile_tile.dart';
 import 'package:petani_kopi/screen/seller/shop_items.dart';
 import 'package:petani_kopi/service/jump.dart';
 import 'package:petani_kopi/theme/colors.dart';
@@ -160,37 +155,6 @@ class _MyShopBodyState extends State<MyShopBody> {
         backgroundColor: backgroundColor,
         extendBodyBehindAppBar: true,
         extendBody: true,
-        // bottomNavigationBar: DefaultTabController(
-        //   length: TypeBars.bar.length,
-        //   child: Padding(
-        //     padding: const EdgeInsets.only(bottom: 8.0),
-        //     child: TabBar(
-        //       onTap: (i) => onChangeType(i),
-        //       isScrollable: true,
-        //       indicatorSize: TabBarIndicatorSize.label,
-        //       labelPadding: const EdgeInsets.only(left: 5, right: 5),
-        //       indicator: BoxDecoration(
-        //         color: mainColor,
-        //         borderRadius: BorderRadius.circular(4),
-        //       ),
-        //       tabs: TypeBars.bar.map((item) {
-        //         return CommonAnimatedSwitcher(
-        //           status: selectedPage == item.index,
-        //           trueWidget: CommonTabButton(
-        //             textColor: projectWhite,
-        //             text: item.type!,
-        //             color: mainColor,
-        //           ),
-        //           falseWidget: CommonTabButton(
-        //             textColor: mainColor,
-        //             text: item.type!,
-        //             color: projectWhite,
-        //           ),
-        //         );
-        //       }).toList(),
-        //     ),
-        //   ),
-        // ),
         appBar: AppBar(
           elevation: 0,
           toolbarHeight: 0,

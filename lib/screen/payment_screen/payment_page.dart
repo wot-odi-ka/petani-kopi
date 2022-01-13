@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petani_kopi/bloc/cart_bloc/cart_bloc.dart';
 import 'package:petani_kopi/bloc/cart_bloc/cart_event.dart';
@@ -10,14 +11,18 @@ import 'package:petani_kopi/bloc/cart_bloc/cart_state.dart';
 import 'package:petani_kopi/bloc/permission_bloc/permission_bloc.dart';
 import 'package:petani_kopi/bloc/permission_bloc/permission_event.dart';
 import 'package:petani_kopi/bloc/permission_bloc/permission_state.dart';
+import 'package:petani_kopi/common/common_empty_shop.dart';
 import 'package:petani_kopi/common/common_expanded.dart';
+import 'package:petani_kopi/common/common_shimmer.dart';
 import 'package:petani_kopi/common/common_upload_choice.dart';
 import 'package:petani_kopi/common/custom_gallery/gallery_utils.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
+import 'package:petani_kopi/helper/page.dart';
 import 'package:petani_kopi/helper/snack_bar.dart';
 import 'package:petani_kopi/model/cart_model.dart';
 import 'package:blurhash/blurhash.dart' as blur;
 import 'package:petani_kopi/screen/payment_screen/payment_item.dart';
+import 'package:petani_kopi/service/jump.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
 class PaymentPage extends StatelessWidget {
@@ -60,6 +65,7 @@ class _PaymentBodyState extends State<PaymentBody> {
 
   @override
   void initState() {
+    placeIndex();
     super.initState();
   }
 
@@ -81,7 +87,14 @@ class _PaymentBodyState extends State<PaymentBody> {
         child: child,
         listeners: [
           BlocListener<CartBloc, CartState>(
-            listener: (context, state) {},
+            listener: (context, state) {
+              if (state is PaymentSubmitted) {
+                widget.checkedCartList.removeWhere(
+                  (element) => element.index! == state.index,
+                );
+                placeIndex();
+              }
+            },
           ),
           BlocListener<PermissionBloc, PermissionState>(
             listener: (context, state) {
@@ -98,6 +111,15 @@ class _PaymentBodyState extends State<PaymentBody> {
           ),
         ],
       );
+
+  Widget listBuilder({required Widget child, required int index}) {
+    return BlocBuilder<CartBloc, CartState>(
+      builder: (context, state) => CommonShimmer(
+        isLoading: state is PaymentSubmitting && index == state.index,
+        child: child,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,25 +149,59 @@ class _PaymentBodyState extends State<PaymentBody> {
                   ],
                 ),
               ),
-              Flexible(
-                child: ExpandableWidget(
-                  expand: widget.checkedCartList.isNotEmpty,
-                  child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    itemCount: widget.checkedCartList.length,
-                    shrinkWrap: true,
-                    controller: scrollController,
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return Container(
-                        padding: const EdgeInsets.only(bottom: 48),
-                        child: PaymentListBody(
-                          model: widget.checkedCartList[index],
-                          onTapImage: () => showUploadChoice(index),
-                          onTapDone: () {},
-                        ),
-                      );
-                    },
+              Visibility(
+                visible: widget.checkedCartList.isNotEmpty,
+                child: Flexible(
+                  child: ExpandableWidget(
+                    expand: widget.checkedCartList.isNotEmpty,
+                    child: ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      itemCount: widget.checkedCartList.length,
+                      shrinkWrap: true,
+                      controller: scrollController,
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return listBuilder(
+                          index: index,
+                          child: Container(
+                            padding: const EdgeInsets.only(bottom: 48),
+                            child: PaymentListBody(
+                              model: widget.checkedCartList[index],
+                              onTapImage: () => showUploadChoice(index),
+                              onTapDone: () => bloc(
+                                PaymentSubmitEvent(
+                                    widget.checkedCartList[index]),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              Visibility(
+                visible: widget.checkedCartList.isEmpty,
+                child: Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ExpandableWidget(
+                            expand: widget.checkedCartList.isEmpty,
+                            child: EmptyProducts(
+                              onTap: () => Jump.to(Pages.homePage),
+                              icon: IconlyLight.arrow_left_2,
+                              text: 'Back to Home',
+                              bodyColor: projectWhite,
+                              textColor: dashboardColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -183,6 +239,7 @@ class _PaymentBodyState extends State<PaymentBody> {
         Uint8List bytes = await compressed.readAsBytes();
         String hash = await blur.BlurHash.encode(bytes, 2, 2);
         widget.checkedCartList[selectedItem].receiptFile = compressed;
+        widget.checkedCartList[selectedItem].receiptHash = hash;
         setState(() {});
       }
     }
@@ -197,8 +254,16 @@ class _PaymentBodyState extends State<PaymentBody> {
         Uint8List bytes = await compressed.readAsBytes();
         String hash = await blur.BlurHash.encode(bytes, 2, 2);
         widget.checkedCartList[selectedItem].receiptFile = compressed;
+        widget.checkedCartList[selectedItem].receiptHash = hash;
         setState(() {});
       }
     }
+  }
+
+  void placeIndex() {
+    for (var i = 0; i < widget.checkedCartList.length; i++) {
+      widget.checkedCartList[i].index = i;
+    }
+    setState(() {});
   }
 }

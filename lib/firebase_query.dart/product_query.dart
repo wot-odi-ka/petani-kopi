@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:petani_kopi/firebase_query.dart/query_key.dart';
 import 'package:petani_kopi/helper/utils.dart';
 import 'package:petani_kopi/model/cart_model.dart';
+import 'package:petani_kopi/model/incoming_oder.dart';
+import 'package:petani_kopi/model/order_model.dart';
 import 'package:petani_kopi/model/orderitemlist.dart';
 import 'package:petani_kopi/model/product.dart';
 import 'package:petani_kopi/model/shoplist.dart';
@@ -223,5 +225,94 @@ class ProductQuery {
     }
 
     return models;
+  }
+
+  static Future<void> deleteCartOnList(CartModel model, String userId) async {
+    List<Map<String, dynamic>> mapList = [];
+    mapList.addAll(model.list!.map((e) => e.toCartList()).toList());
+    FirebaseFirestore.instance
+        .collection(Col.cart)
+        .doc(userId)
+        .collection(Col.cartItem)
+        .doc(model.shopId)
+        .update({
+      'cartList': FieldValue.arrayRemove(mapList),
+    }).catchError((e) => throw e);
+  }
+
+  static uploadInOrder(IncomingOrder model, String userId) async {
+    await FirebaseFirestore.instance
+        .collection(Col.incomingOrder)
+        .doc(model.shopId)
+        .collection(Col.orderList)
+        .add(model.incomingOrder())
+        .then((value) {
+      value.update({'incomingOrderId': value.id});
+    }).catchError((e) => throw e);
+  }
+
+  static uploadMyOrder(IncomingOrder model, String userId) async {
+    return await FirebaseFirestore.instance
+        .collection(Col.outComingOrder)
+        .doc(userId)
+        .collection(Col.orderList)
+        .add(model.myOrder())
+        .then((value) {
+      value.update({'outComingOrderId': value.id});
+      return value.id;
+    }).catchError((e) => throw e);
+  }
+
+  static checkCart(CartModel model, String userId) async {
+    List<CartModel> carts = [];
+    QuerySnapshot snap = await FirebaseFirestore.instance
+        .collection(Col.cart)
+        .doc(userId)
+        .collection(Col.cartItem)
+        .where('shopId', isEqualTo: model.shopId)
+        .get()
+        .catchError((e) => throw e);
+
+    for (var i = 0; i < snap.docs.length; i++) {
+      var map = snap.docs[i].data() as Map<String, dynamic>;
+      carts.add(CartModel.fromCartItem(map));
+    }
+
+    return carts[0].list!.length == model.list!.length;
+  }
+
+  static getIncomingOrder(Users user) {
+    return FirebaseFirestore.instance
+        .collection(Col.incomingOrder)
+        .doc(user.userId)
+        .collection(Col.orderList)
+        .snapshots();
+  }
+
+  static getOutcomingOrder(Users user, String status) {
+    return FirebaseFirestore.instance
+        .collection(Col.outComingOrder)
+        .doc(user.userId)
+        .collection(Col.orderList)
+        .where('userStatus', isEqualTo: status)
+        .snapshots();
+  }
+
+  static updateIncomingOrder(Users user, Order order) async {
+    await FirebaseFirestore.instance
+        .collection(Col.incomingOrder)
+        .doc(user.userId)
+        .collection(Col.orderList)
+        .doc(order.incomingOrderId)
+        .update({'userStatus': order.userStatus}).catchError((e) => throw e);
+  }
+
+  static updateOutcomingOrder(Order order) async {
+    await FirebaseFirestore.instance
+        .collection(Col.outComingOrder)
+        .doc(order.userId)
+        .collection(Col.orderList)
+        .doc(order.outComingOrderId)
+        .update({'userStatus': order.userStatus}).catchError((e) => throw e);
   }
 }

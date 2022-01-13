@@ -7,7 +7,6 @@ import 'package:iconly/iconly.dart';
 import 'package:petani_kopi/bloc/cart_bloc/cart_bloc.dart';
 import 'package:petani_kopi/bloc/cart_bloc/cart_event.dart';
 import 'package:petani_kopi/bloc/cart_bloc/cart_state.dart';
-import 'package:petani_kopi/common/common_animated_order.dart';
 import 'package:petani_kopi/common/common_detail_animation.dart';
 import 'package:petani_kopi/common/common_empty_shop.dart';
 import 'package:petani_kopi/common/common_loading.dart';

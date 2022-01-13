@@ -7,6 +7,12 @@ class Const {
   static const String typeNormal = 'normal';
   static const String typeImage = 'image';
 
+  static const notConfirmed = 'STATUS_NOT_CONFIRMED';
+  static const confirmed = 'STATUS_CONFIRMED';
+  static const packaging = 'STATUS_PACKAGING';
+  static const send = 'STATUS_SEND';
+  static const done = 'STATUS_DONE';
+
   //default
   static const String aboutMe = 'masukan Alamat anda';
   static const String fb = 'defaultfblogin';

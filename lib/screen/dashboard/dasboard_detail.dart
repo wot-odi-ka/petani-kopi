@@ -56,19 +56,19 @@ class _DashboardDetailBodyState extends State<DashboardDetailBody> {
               _buildItemCard(context),
               Container(
                   padding: const EdgeInsets.all(30.0),
-                  child: Text(
+                  child: const Text(
                     'Kopi Robusta merupakan keturunan beberapa spesies kopi, terutama Coffea canephora. Jenis kopi ini tumbuh baik di ketinggian 400-700 m dpl, temperatur 21-24° C dengan bulan kering 3-4 bulan secara berturut-turut dan 3-4 kali hujan kiriman. Kualitas buah lebih rendah dari Arabika dan Liberika.',
                     // style: buttomStyle(),
                   )),
               Container(
                   padding: const EdgeInsets.only(left: 20.0, bottom: 10.0),
                   child: Row(
-                    children: [
+                    children: const [
                       Text(
                         'Arabika',
                         // style: buttomStyle(),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         width: 270,
                       ),
                     ],
@@ -98,7 +98,7 @@ class _DashboardDetailBodyState extends State<DashboardDetailBody> {
                             style: cardStyle(),
                           ),
                           const SizedBox(height: 4),
-                          Text(
+                          const Text(
                             '\$4.50',
                             // style: buttomStyle(),
                           ),
@@ -113,11 +113,11 @@ class _DashboardDetailBodyState extends State<DashboardDetailBody> {
                         onPressed: () {},
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
-                        child: SizedBox(
+                        child: const SizedBox(
                           height: 45,
                           width: 200,
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 15),
+                            padding: EdgeInsets.only(top: 15),
                             child: Text(
                               'Add to Cart',
                               textAlign: TextAlign.center,

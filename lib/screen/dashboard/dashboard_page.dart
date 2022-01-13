@@ -2,14 +2,11 @@
 
 import 'dart:async';
 
-import 'package:avatar_glow/avatar_glow.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:iconly/iconly.dart';
-import 'package:petani_kopi/animation/common_detail.dart';
 import 'package:petani_kopi/bloc/dasboard_bloc/dasboard_bloc.dart';
 import 'package:petani_kopi/bloc/dasboard_bloc/dasboard_event.dart';
 import 'package:petani_kopi/bloc/dasboard_bloc/dasboard_state.dart';
@@ -18,7 +15,6 @@ import 'package:petani_kopi/common/common_detail_animation.dart';
 import 'package:petani_kopi/common/common_empty_shop.dart';
 import 'package:petani_kopi/common/common_loading.dart';
 import 'package:petani_kopi/common/common_tab_button.dart';
-import 'package:petani_kopi/drawer/nav_drawer.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
 import 'package:petani_kopi/helper/page.dart';
 import 'package:petani_kopi/model/product.dart';
@@ -29,7 +25,6 @@ import 'package:petani_kopi/screen/dashboard/dashboard_items.dart';
 import 'package:petani_kopi/service/jump.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
-import 'dasboard_detail.dart';
 import 'dasboard_widgets.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -88,6 +83,10 @@ class _DashboardBodyState extends State<DashboardBody> {
 
   bloc(DasboardEvent event) {
     BlocProvider.of<DasboardBloc>(context).add(event);
+  }
+
+  Users user() {
+    return BlocProvider.of<DasboardBloc>(context).user;
   }
 
   onChangeHandler(value) {
@@ -322,10 +321,13 @@ class _DashboardBodyState extends State<DashboardBody> {
     required int deletedIndex,
   }) {
     var map = query.data() as Map<String, dynamic>;
-    return CommonDetailAnimation(
-      color: Colors.transparent,
-      detail: DashboardItemDetail(model: Product.fromSearch(map)),
-      child: DashboardItems(model: Product.fromCart(map)),
+    return Visibility(
+      visible: user().userId != map['userId'],
+      child: CommonDetailAnimation(
+        color: Colors.transparent,
+        detail: DashboardItemDetail(model: Product.fromSearch(map)),
+        child: DashboardItems(model: Product.fromCart(map)),
+      ),
     );
   }
 

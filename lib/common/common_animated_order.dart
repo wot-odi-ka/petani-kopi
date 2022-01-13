@@ -6,12 +6,14 @@ class AnimatedColumn extends StatelessWidget {
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisAlignment mainAxisAlignment;
   final MainAxisSize mainAxisSize;
+  final int duration;
   const AnimatedColumn({
     Key? key,
     required this.children,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.mainAxisSize = MainAxisSize.max,
+    this.duration = 600,
   }) : super(key: key);
 
   @override
@@ -22,7 +24,7 @@ class AnimatedColumn extends StatelessWidget {
         mainAxisAlignment: mainAxisAlignment,
         mainAxisSize: mainAxisSize,
         children: AnimationConfiguration.toStaggeredList(
-          duration: const Duration(milliseconds: 600),
+          duration: Duration(milliseconds: duration),
           childAnimationBuilder: (widget) => SlideAnimation(
             horizontalOffset: 80.0,
             child: FadeInAnimation(child: widget),

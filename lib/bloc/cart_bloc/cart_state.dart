@@ -11,6 +11,18 @@ class InitCartOnLoading extends CartState {}
 
 class CartDeleting extends CartState {}
 
+class PaymentSubmitting extends CartState {
+  final int index;
+
+  PaymentSubmitting(this.index);
+}
+
+class PaymentSubmitted extends CartState {
+  final int index;
+
+  PaymentSubmitted(this.index);
+}
+
 class InitCartLoaded extends CartState {
   // final Stream<QuerySnapshot> shops;
   final List<CartModel> carts;

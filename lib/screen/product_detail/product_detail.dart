@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:petani_kopi/model/product.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
@@ -26,7 +25,7 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Column(
-        children: [],
+        children: const [],
       ),
     );
   }

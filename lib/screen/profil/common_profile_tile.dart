@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 import 'package:petani_kopi/screen/profil/common_profile_textfield.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
@@ -81,4 +82,50 @@ class _CommonProfileTileState extends State<CommonProfileTile> {
                 ),
               ),
       );
+}
+
+class CommonAccountTile extends StatelessWidget {
+  final Function() onTap;
+  final IconData icon;
+  final String title;
+  final Color textColor;
+  final Color bodyColor;
+  const CommonAccountTile({
+    Key? key,
+    required this.onTap,
+    required this.icon,
+    required this.title,
+    this.textColor = projectWhite,
+    this.bodyColor = fieldColor,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 5,
+      color: bodyColor,
+      child: ListTile(
+        onTap: () => onTap(),
+        leading: Icon(
+          icon,
+          color: textColor,
+        ),
+        title: Transform.translate(
+          offset: const Offset(-16, -0),
+          child: Text(
+            title,
+            style: TextStyle(
+              color: textColor,
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ),
+        trailing: Icon(
+          IconlyLight.arrow_right_2,
+          color: textColor,
+        ),
+      ),
+    );
+  }
 }
