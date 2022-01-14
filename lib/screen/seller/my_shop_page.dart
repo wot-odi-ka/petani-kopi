@@ -152,7 +152,7 @@ class _MyShopBodyState extends State<MyShopBody> {
   Widget build(BuildContext context) {
     return blocListener(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: dashboardColor,
         extendBodyBehindAppBar: true,
         extendBody: true,
         appBar: AppBar(
@@ -381,6 +381,8 @@ class _MyShopBodyState extends State<MyShopBody> {
                                       children: [
                                         Flexible(
                                           child: EmptyProducts(
+                                            bodyColor: projectWhite,
+                                            textColor: dashboardColor,
                                             onTap: () => Jump.toArg(
                                               Pages.sellerPage,
                                               {'isRegister': user.userIsSeller},

@@ -26,9 +26,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         await getOutComing(event.orderStatus);
         emit(InitGetOutcomingLoaded(orderStream));
       } else if (event is IncomingOrderUpdateStatus) {
-        emit(IncomingUpdating(event.order.index!));
+        emit(IncomingUpdating(event.order.index ?? 0));
         await updateInOut(event.order);
-        emit(IncomingUpdated(event.order.index!));
+        emit(IncomingUpdated(event.order.index ?? 0));
       }
     } catch (e) {
       emit(OrderFailed(e.toString()));

@@ -102,8 +102,7 @@ class ShopItems extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: backgroundColor.withOpacity(0.7),
-                boxShadow: commonShadow,
+                color: backgroundColor.withOpacity(0.5),
                 borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(8),
                   bottomLeft: Radius.circular(8),

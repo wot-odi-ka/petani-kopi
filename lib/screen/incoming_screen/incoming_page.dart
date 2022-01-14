@@ -9,6 +9,7 @@ import 'package:petani_kopi/common/common_empty_shop.dart';
 import 'package:petani_kopi/common/common_loading.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
 import 'package:petani_kopi/helper/page.dart';
+import 'package:petani_kopi/helper/snack_bar.dart';
 import 'package:petani_kopi/model/order_model.dart';
 import 'package:petani_kopi/screen/incoming_screen/incoming_item.dart';
 import 'package:petani_kopi/service/jump.dart';
@@ -65,6 +66,9 @@ class _IncomingOrderBodyState extends State<IncomingOrderBody> {
                 setState(() {
                   orderStream = state.orderStream;
                 });
+              }
+              if (state is OrderFailed) {
+                context.fail(state.error);
               }
             },
           ),
@@ -176,8 +180,10 @@ class _IncomingOrderBodyState extends State<IncomingOrderBody> {
     required int deletedIndex,
   }) {
     var map = query.data() as Map<String, dynamic>;
+    var orders = Order.incoming(map);
+    orders.index = deletedIndex;
     return IncomingOrderItem(
-      model: Order.incoming(map),
+      model: orders,
     );
   }
 }

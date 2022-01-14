@@ -1,12 +1,17 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:iconly/iconly.dart';
+import 'package:petani_kopi/bloc/order_bloc/order_bloc.dart';
+import 'package:petani_kopi/bloc/order_bloc/order_event.dart';
+import 'package:petani_kopi/bloc/order_bloc/order_state.dart';
 import 'package:petani_kopi/common/common_animated_order.dart';
 import 'package:petani_kopi/common/common_detail_animation.dart';
 import 'package:petani_kopi/common/common_expanded.dart';
 import 'package:petani_kopi/common/common_profile_tile.dart';
+import 'package:petani_kopi/common/common_shimmer.dart';
 import 'package:petani_kopi/common/custom_dropdown.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
 import 'package:petani_kopi/model/cart_model.dart';
@@ -29,6 +34,22 @@ class IncomingOrderItem extends StatefulWidget {
 }
 
 class _IncomingOrderItemState extends State<IncomingOrderItem> {
+  bloc(OrderEvent event) {
+    BlocProvider.of<OrderBloc>(context).add(event);
+  }
+
+  Widget buttonBuilder({required Widget child, required int index}) {
+    return BlocBuilder<OrderBloc, OrderState>(
+      builder: (context, state) => CommonShimmer(
+        isLoading: state is IncomingUpdating && index == state.index,
+        child: IgnorePointer(
+          ignoring: state is IncomingUpdating && index == state.index,
+          child: child,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -84,14 +105,6 @@ class _IncomingOrderItemState extends State<IncomingOrderItem> {
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              Text(
-                                CartUtils.countTotal(widget.model.list!),
-                                style: const TextStyle(
-                                  color: dashboardColor,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
                             ],
                           ),
                         ),
@@ -105,27 +118,32 @@ class _IncomingOrderItemState extends State<IncomingOrderItem> {
                       );
                     }).toList(),
                   ),
+                  SizedBox(
+                    width: context.width(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: buttonBuilder(
+                            index: widget.model.index ?? 0,
+                            child: CustomDropDownBold(
+                              varSelected: widget.model.userStatus!,
+                              list: KeyOrderStatus().getList(
+                                widget.model.userStatus!,
+                              ),
+                              hint: '',
+                              onChange: (v) {
+                                widget.model.userStatus = v;
+                                bloc(IncomingOrderUpdateStatus(widget.model));
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: -18,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: CustomDropDownBold(
-                    varSelected: widget.model.userStatus!,
-                    list: KeyOrderStatus().list,
-                    hint: 'Select Status',
-                    onChange: (v) {},
-                  ),
-                ),
-              ],
             ),
           ),
         ),

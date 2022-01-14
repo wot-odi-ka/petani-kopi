@@ -40,6 +40,7 @@ class _CustomDropDownBoldState extends State<CustomDropDownBold> {
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
       child: DropdownButtonFormField<String>(
+        dropdownColor: dashboardColor,
         focusNode: widget.focusNode,
         iconEnabledColor: projectWhite,
         iconDisabledColor: Colors.grey,
@@ -53,7 +54,12 @@ class _CustomDropDownBoldState extends State<CustomDropDownBold> {
         items: (widget.list.isNotEmpty)
             ? widget.list.map((e) {
                 return DropdownMenuItem(
-                  child: Text(e.label!),
+                  child: Text(
+                    e.label!,
+                    style: const TextStyle(
+                      color: projectWhite,
+                    ),
+                  ),
                   value: e.value,
                 );
               }).toList()
