@@ -36,8 +36,8 @@ class Order {
     incomingOrderId = json['incomingOrderId'];
     outComingOrderId = json['outComingOrderId'];
     userStatus = json['userStatus'];
+    list = [];
     json['cartList'].forEach((item) {
-      list = [];
       list!.add(Product.fromCartList(item));
     });
   }
@@ -50,8 +50,8 @@ class Order {
     userLocation = json['userLocation'];
     outComingOrderId = json['outComingOrderId'];
     userStatus = json['userStatus'];
+    list = [];
     json['cartList'].forEach((item) {
-      list = [];
       list!.add(Product.fromCartList(item));
     });
   }

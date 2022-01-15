@@ -30,6 +30,7 @@ class Col {
   static const productSearch = 'ProductSearch';
   static const incomingOrder = 'IncomingOrder';
   static const outComingOrder = 'OutComingOrder';
+  static const order = 'Order';
 }
 
 class ProdKey {

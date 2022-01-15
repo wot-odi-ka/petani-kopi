@@ -10,37 +10,34 @@ import 'package:petani_kopi/common/common_loading.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
 import 'package:petani_kopi/helper/page.dart';
 import 'package:petani_kopi/helper/snack_bar.dart';
-import 'package:petani_kopi/model/order.dart';
 import 'package:petani_kopi/model/order_model.dart';
-import 'package:petani_kopi/screen/incoming_screen/incoming_item.dart';
-import 'package:petani_kopi/screen/incoming_screen/incoming_order_item.dart';
 import 'package:petani_kopi/service/jump.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
-class IncomingOrderPage extends StatelessWidget {
-  const IncomingOrderPage({Key? key}) : super(key: key);
+class MyOrderPage extends StatelessWidget {
+  const MyOrderPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<OrderBloc>(
-          create: (context) => OrderBloc()..add(InitGetIncomingOrder()),
+          create: (context) => OrderBloc()..add(InitGetOutComingOrder('')),
         ),
       ],
-      child: const IncomingOrderBody(),
+      child: const MyOrderBody(),
     );
   }
 }
 
-class IncomingOrderBody extends StatefulWidget {
-  const IncomingOrderBody({Key? key}) : super(key: key);
+class MyOrderBody extends StatefulWidget {
+  const MyOrderBody({Key? key}) : super(key: key);
 
   @override
-  _IncomingOrderBodyState createState() => _IncomingOrderBodyState();
+  _MyOrderBodyState createState() => _MyOrderBodyState();
 }
 
-class _IncomingOrderBodyState extends State<IncomingOrderBody> {
+class _MyOrderBodyState extends State<MyOrderBody> {
   ScrollController scrollController = ScrollController();
   Stream<QuerySnapshot>? orderStream;
 
@@ -64,7 +61,7 @@ class _IncomingOrderBodyState extends State<IncomingOrderBody> {
         listeners: [
           BlocListener<OrderBloc, OrderState>(
             listener: (context, state) {
-              if (state is InitGetIncomingLoaded) {
+              if (state is InitGetOutcomingLoaded) {
                 setState(() {
                   orderStream = state.orderStream;
                 });
@@ -182,22 +179,8 @@ class _IncomingOrderBodyState extends State<IncomingOrderBody> {
     required int deletedIndex,
   }) {
     var map = query.data() as Map<String, dynamic>;
-    var orders = Order.incoming(map);
+    var orders = Order.outcoming(map);
     orders.index = deletedIndex;
-    return IncomingOrderItem(
-      model: orders,
-    );
-  }
-
-  Widget buildTile2(
-    DocumentSnapshot query, {
-    required int deletedIndex,
-  }) {
-    var map = query.data() as Map<String, dynamic>;
-    var orders = OrderSubmit.fromOrder(map);
-    orders.index = deletedIndex;
-    return IncomingOrderItem2(
-      model: orders,
-    );
+    return Container();
   }
 }

@@ -19,7 +19,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       user = await DB.getUser();
       if (event is InitGetIncomingOrder) {
         emit(InitGetIncomingLoading());
-        await getIncoming();
+        await getIncomingOrders();
         emit(InitGetIncomingLoaded(orderStream));
       } else if (event is InitGetOutComingOrder) {
         emit(InitGetOutcomingLoading());
@@ -37,6 +37,10 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
 
   Future<void> getIncoming() async {
     orderStream = await ProductQuery.getIncomingOrder(user);
+  }
+
+  Future<void> getIncomingOrders() async {
+    orderStream = await ProductQuery.getIncomingOrders(user);
   }
 
   Future<void> getOutComing(String orderStatus) async {

@@ -13,6 +13,9 @@ class Const {
   static const send = 'STATUS_SEND';
   static const done = 'STATUS_DONE';
 
+  static const orderIncoming = 'ORDER_INCOMING';
+  static const orderOutcoming = 'ORDER_OUTCOMING';
+
   //default
   static const String aboutMe = 'masukan Alamat anda';
   static const String fb = 'defaultfblogin';

@@ -6,6 +6,8 @@ import 'package:petani_kopi/firebase_query.dart/product_query.dart';
 import 'package:petani_kopi/helper/utils.dart';
 import 'package:petani_kopi/model/cart_model.dart';
 import 'package:petani_kopi/model/incoming_oder.dart';
+import 'package:petani_kopi/model/order.dart';
+import 'package:petani_kopi/model/order_model.dart';
 import 'package:petani_kopi/model/shoplist.dart';
 import 'package:petani_kopi/model/users.dart';
 import 'package:petani_kopi/service/database.dart';
@@ -37,7 +39,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(CartDeleted());
       } else if (event is PaymentSubmitEvent) {
         emit(PaymentSubmitting(event.model.index!));
-        await uploadOrder(event.model);
+        await uploadOrders(event.model);
         await deleteCart(event.model);
         emit(PaymentSubmitted(event.model.index!));
       }
@@ -94,6 +96,21 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       await ProductQuery.deleteCartAll(model, user.userId!);
     } else {
       await ProductQuery.deleteCartOnList(model, user.userId!);
+    }
+  }
+
+  Future<void> uploadOrders(CartModel model) async {
+    if (model.receiptFile != null) {
+      model.receiptUrl = await singleUpload(model.receiptFile!);
+      var outcoming = OrderSubmit.outcoming(model.toOrder());
+      var incoming = OrderSubmit.incoming(
+        json: model.toOrder(),
+        userMap: user.toMap(),
+      );
+      await ProductQuery.uploadOrder(outcoming);
+      await ProductQuery.uploadOrder(incoming);
+    } else {
+      throw 'No Receipt';
     }
   }
 }

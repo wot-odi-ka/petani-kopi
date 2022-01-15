@@ -138,7 +138,6 @@ class CartUtils {
         }
       }
     }
-
     return newList;
   }
 

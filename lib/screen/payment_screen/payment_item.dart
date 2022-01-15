@@ -308,6 +308,18 @@ class _PaymentProductListState extends State<PaymentProductList> {
               fontWeight: FontWeight.w600,
             ),
           ),
+          trailing: CircleAvatar(
+            radius: 12,
+            backgroundColor: dashboardColor,
+            child: Text(
+              widget.product.itemCount!,
+              style: const TextStyle(
+                color: projectWhite,
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
         ),
       ],
     );

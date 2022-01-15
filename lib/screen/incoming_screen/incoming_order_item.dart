@@ -12,22 +12,23 @@ import 'package:petani_kopi/common/common_shimmer.dart';
 import 'package:petani_kopi/common/custom_dropdown.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
 import 'package:petani_kopi/model/key_val.dart';
+import 'package:petani_kopi/model/order.dart';
 import 'package:petani_kopi/model/order_model.dart';
 import 'package:petani_kopi/screen/payment_screen/payment_item.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
-class IncomingOrderItem extends StatefulWidget {
-  final Order model;
-  const IncomingOrderItem({
+class IncomingOrderItem2 extends StatefulWidget {
+  final OrderSubmit model;
+  const IncomingOrderItem2({
     Key? key,
     required this.model,
   }) : super(key: key);
 
   @override
-  State<IncomingOrderItem> createState() => _IncomingOrderItemState();
+  State<IncomingOrderItem2> createState() => _IncomingOrderItem2State();
 }
 
-class _IncomingOrderItemState extends State<IncomingOrderItem> {
+class _IncomingOrderItem2State extends State<IncomingOrderItem2> {
   bloc(OrderEvent event) {
     BlocProvider.of<OrderBloc>(context).add(event);
   }
@@ -172,13 +173,13 @@ class _IncomingOrderItemState extends State<IncomingOrderItem> {
                         index: widget.model.index ?? 0,
                         child: CustomDropDownBold(
                           hint: '',
-                          varSelected: widget.model.userStatus!,
+                          varSelected: widget.model.processStatus!,
                           list: KeyOrderStatus().getList(
-                            widget.model.userStatus!,
+                            widget.model.processStatus!,
                           ),
                           onChange: (v) {
-                            widget.model.userStatus = v;
-                            bloc(IncomingOrderUpdateStatus(widget.model));
+                            widget.model.processStatus = v;
+                            // bloc(IncomingOrderUpdateStatus(widget.model));
                           },
                         ),
                       ),

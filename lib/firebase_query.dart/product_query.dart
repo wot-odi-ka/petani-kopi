@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:petani_kopi/firebase_query.dart/query_key.dart';
+import 'package:petani_kopi/helper/constants.dart';
 import 'package:petani_kopi/helper/utils.dart';
 import 'package:petani_kopi/model/cart_model.dart';
 import 'package:petani_kopi/model/incoming_oder.dart';
+import 'package:petani_kopi/model/order.dart';
 import 'package:petani_kopi/model/order_model.dart';
 import 'package:petani_kopi/model/orderitemlist.dart';
 import 'package:petani_kopi/model/product.dart';
@@ -290,12 +292,20 @@ class ProductQuery {
   }
 
   static getOutcomingOrder(Users user, String status) {
-    return FirebaseFirestore.instance
-        .collection(Col.outComingOrder)
-        .doc(user.userId)
-        .collection(Col.orderList)
-        .where('userStatus', isEqualTo: status)
-        .snapshots();
+    if (status.isEmpty) {
+      return FirebaseFirestore.instance
+          .collection(Col.outComingOrder)
+          .doc(user.userId)
+          .collection(Col.orderList)
+          .snapshots();
+    } else {
+      return FirebaseFirestore.instance
+          .collection(Col.outComingOrder)
+          .doc(user.userId)
+          .collection(Col.orderList)
+          .where('userStatus', isEqualTo: status)
+          .snapshots();
+    }
   }
 
   static updateIncomingOrder(Users user, Order order) async {
@@ -314,5 +324,42 @@ class ProductQuery {
         .collection(Col.orderList)
         .doc(order.outComingOrderId)
         .update({'userStatus': order.userStatus}).catchError((e) => throw e);
+  }
+
+  static uploadOrder(OrderSubmit order) async {
+    await FirebaseFirestore.instance
+        .collection(Col.order)
+        .add(order.upload())
+        .then((value) {
+      value.update({'orderId': value.id});
+    });
+  }
+
+  static getIncomingOrders(Users user) {
+    return FirebaseFirestore.instance
+        .collection(Col.order)
+        .where('userId', isEqualTo: user.userId)
+        .where('orderType', isEqualTo: Const.orderIncoming)
+        .snapshots();
+  }
+
+  static getOutcomingOrders(Users user) {
+    return FirebaseFirestore.instance
+        .collection(Col.order)
+        .where('userId', isEqualTo: user.userId)
+        .where('orderType', isEqualTo: Const.orderOutcoming)
+        .snapshots();
+  }
+
+  static updateOrder(Map<String, String> map) {
+    return FirebaseFirestore.instance
+        .collection(Col.order)
+        .where('orderId', isEqualTo: map['orderId'])
+        .get()
+        .then((value) async {
+      for (var element in value.docs) {
+        await element.reference.update({'processStatus': map['processStatus']});
+      }
+    });
   }
 }
