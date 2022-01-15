@@ -49,7 +49,7 @@ class IncomingOrder {
     });
   }
 
-  IncomingOrder.fromUser(
+  IncomingOrder.inOrder(
     Map<String, dynamic> json, {
     required List<Product> cartList,
     required String receiptUrl,
@@ -95,7 +95,6 @@ class IncomingOrder {
     map["userImageHash"] = userImageHash;
     map["userLocation"] = userLocation;
     map["userStatus"] = userStatus ?? Const.notConfirmed;
-    map["incomingOrderId"] = '';
     if (list != null) {
       map['cartList'] = list!.map((e) => e.toCartList()).toList();
     }

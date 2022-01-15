@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:petani_kopi/common/common_animated_order.dart';
-import 'package:petani_kopi/helper/constants.dart';
 import 'package:petani_kopi/model/product.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:petani_kopi/theme/colors.dart';

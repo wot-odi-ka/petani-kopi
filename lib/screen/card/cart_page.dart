@@ -6,7 +6,6 @@ import 'package:petani_kopi/bloc/cart_bloc/cart_event.dart';
 import 'package:petani_kopi/bloc/cart_bloc/cart_state.dart';
 import 'package:petani_kopi/common/bottomsheet_button.dart';
 import 'package:petani_kopi/common/common_animated_order.dart';
-import 'package:petani_kopi/common/common_expanded.dart';
 import 'package:petani_kopi/common/common_loading.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
 import 'package:petani_kopi/helper/page.dart';
@@ -78,9 +77,9 @@ class _CartBodyState extends State<CartBody> {
         if (state is InitCartOnLoading) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               Expanded(
-                child: const CommonLoading(
+                child: CommonLoading(
                   color: projectWhite,
                 ),
               ),
@@ -112,11 +111,11 @@ class _CartBodyState extends State<CartBody> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(24.0),
+              const Padding(
+                padding: EdgeInsets.all(24.0),
                 child: AnimatedColumn(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     SizedBox(height: 35),
                     Text(
                       'My Cart',
