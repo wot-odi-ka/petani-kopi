@@ -105,4 +105,12 @@ class OrderSubmit {
     map['processStatus'] = processStatus;
     return map;
   }
+
+  Map<String, dynamic> toDelete(String loginId) {
+    Map<String, dynamic> map = {};
+    map["userId"] = loginId;
+    map["orderId"] = orderId;
+    map['processStatus'] = processStatus;
+    return map;
+  }
 }

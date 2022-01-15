@@ -16,4 +16,5 @@ class Pages {
   static const myOrder = 'myOrder';
   static const paymentPage = 'paymentPage';
   static const incomingOrder = 'incomingOrder';
+  static const myOrderPage = 'myOrderPage';
 }

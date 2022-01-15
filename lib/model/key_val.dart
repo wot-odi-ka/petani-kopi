@@ -3,9 +3,11 @@ import 'package:petani_kopi/helper/constants.dart';
 class KeyVal {
   String? label;
   String? value;
+  int index;
   KeyVal({
     this.label,
     this.value,
+    this.index = 0,
   });
 }
 
@@ -14,22 +16,50 @@ class KeyOrderStatus {
     KeyVal(
       label: 'Not Confirmed',
       value: Const.notConfirmed,
+      index: 0,
     ),
     KeyVal(
       label: 'Confirmed',
       value: Const.confirmed,
+      index: 1,
     ),
     KeyVal(
       label: 'Packaging',
       value: Const.packaging,
+      index: 2,
     ),
     KeyVal(
       label: 'Order Send',
       value: Const.send,
+      index: 3,
     ),
     KeyVal(
       label: 'Order Done',
       value: Const.done,
+      index: 4,
+    ),
+  ];
+
+  List<KeyVal> notConfirmed = [
+    KeyVal(
+      label: 'Not Confirmed',
+      value: Const.notConfirmed,
+      index: 0,
+    ),
+    KeyVal(
+      label: 'Confirmed',
+      value: Const.confirmed,
+      index: 1,
+    ),
+    KeyVal(
+      label: 'Packaging',
+      value: Const.packaging,
+      index: 2,
+    ),
+    KeyVal(
+      label: 'Order Send',
+      value: Const.send,
+      index: 3,
     ),
   ];
 
@@ -46,10 +76,6 @@ class KeyOrderStatus {
       label: 'Order Send',
       value: Const.send,
     ),
-    KeyVal(
-      label: 'Order Done',
-      value: Const.done,
-    ),
   ];
 
   List<KeyVal> packaging = [
@@ -61,20 +87,12 @@ class KeyOrderStatus {
       label: 'Order Send',
       value: Const.send,
     ),
-    KeyVal(
-      label: 'Order Done',
-      value: Const.done,
-    ),
   ];
 
   List<KeyVal> send = [
     KeyVal(
       label: 'Order Send',
       value: Const.send,
-    ),
-    KeyVal(
-      label: 'Order Done',
-      value: Const.done,
     ),
   ];
 
@@ -88,7 +106,7 @@ class KeyOrderStatus {
   List<KeyVal> getList(String status) {
     List<KeyVal> result = [];
     if (status == Const.notConfirmed) {
-      result.addAll(list);
+      result.addAll(notConfirmed);
     } else if (status == Const.confirmed) {
       result.addAll(confirmed);
     } else if (status == Const.packaging) {

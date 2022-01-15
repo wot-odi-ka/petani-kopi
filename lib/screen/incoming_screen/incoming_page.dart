@@ -177,18 +177,6 @@ class _IncomingOrderBodyState extends State<IncomingOrderBody> {
     );
   }
 
-  Widget buildTile(
-    DocumentSnapshot query, {
-    required int deletedIndex,
-  }) {
-    var map = query.data() as Map<String, dynamic>;
-    var orders = Order.incoming(map);
-    orders.index = deletedIndex;
-    return IncomingOrderItem(
-      model: orders,
-    );
-  }
-
   Widget buildTile2(
     DocumentSnapshot query, {
     required int deletedIndex,

@@ -5,24 +5,31 @@ import 'package:iconly/iconly.dart';
 import 'package:petani_kopi/bloc/order_bloc/order_bloc.dart';
 import 'package:petani_kopi/bloc/order_bloc/order_event.dart';
 import 'package:petani_kopi/bloc/order_bloc/order_state.dart';
+import 'package:petani_kopi/common/common_animated_switcher.dart';
 import 'package:petani_kopi/common/common_empty_shop.dart';
 import 'package:petani_kopi/common/common_loading.dart';
+import 'package:petani_kopi/common/common_tab_button.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
+import 'package:petani_kopi/helper/constants.dart';
 import 'package:petani_kopi/helper/page.dart';
 import 'package:petani_kopi/helper/snack_bar.dart';
+import 'package:petani_kopi/model/key_val.dart';
+import 'package:petani_kopi/model/order.dart';
 import 'package:petani_kopi/model/order_model.dart';
+import 'package:petani_kopi/screen/myorder_page/myorder_item.dart';
 import 'package:petani_kopi/service/jump.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
-class MyOrderPage extends StatelessWidget {
-  const MyOrderPage({Key? key}) : super(key: key);
+class MyOrderPages extends StatelessWidget {
+  const MyOrderPages({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<OrderBloc>(
-          create: (context) => OrderBloc()..add(InitGetOutComingOrder('')),
+          create: (context) =>
+              OrderBloc()..add(InitGetOutComingOrder(Const.notConfirmed)),
         ),
       ],
       child: const MyOrderBody(),
@@ -40,7 +47,8 @@ class MyOrderBody extends StatefulWidget {
 class _MyOrderBodyState extends State<MyOrderBody> {
   ScrollController scrollController = ScrollController();
   Stream<QuerySnapshot>? orderStream;
-
+  int selectedPage = 0;
+  String selectedStatus = '';
   @override
   void initState() {
     super.initState();
@@ -54,6 +62,14 @@ class _MyOrderBodyState extends State<MyOrderBody> {
 
   bloc(OrderEvent event) {
     BlocProvider.of<OrderBloc>(context).add(event);
+  }
+
+  void onChangeType(int index) {
+    setState(() {
+      selectedPage = index;
+      selectedStatus = KeyOrderStatus().list[index].value!;
+    });
+    bloc(InitGetOutComingOrder(selectedStatus));
   }
 
   Widget blocListener({required Widget child}) => MultiBlocListener(
@@ -92,7 +108,7 @@ class _MyOrderBodyState extends State<MyOrderBody> {
                   children: const [
                     SizedBox(height: 35),
                     Text(
-                      'Incoming Order',
+                      'My Order',
                       style: TextStyle(
                         color: backgroundColor,
                         fontSize: 28,
@@ -102,6 +118,42 @@ class _MyOrderBodyState extends State<MyOrderBody> {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: DefaultTabController(
+                  length: KeyOrderStatus().list.length,
+                  child: TabBar(
+                    onTap: (i) => onChangeType(i),
+                    isScrollable: true,
+                    physics: const BouncingScrollPhysics(),
+                    indicatorSize: TabBarIndicatorSize.label,
+                    labelPadding: const EdgeInsets.only(
+                      left: 5,
+                      right: 5,
+                    ),
+                    indicator: BoxDecoration(
+                      color: projectWhite,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    tabs: KeyOrderStatus().list.map((item) {
+                      return CommonAnimatedSwitcher(
+                        status: selectedPage == item.index,
+                        trueWidget: CommonTabButton(
+                          textColor: mainColor,
+                          text: item.label!,
+                          color: projectWhite,
+                        ),
+                        falseWidget: CommonTabButton(
+                          textColor: projectWhite,
+                          text: item.label!,
+                          color: mainColor,
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
               Expanded(
                 child: SizedBox(
                   width: context.width(),
@@ -179,8 +231,10 @@ class _MyOrderBodyState extends State<MyOrderBody> {
     required int deletedIndex,
   }) {
     var map = query.data() as Map<String, dynamic>;
-    var orders = Order.outcoming(map);
+    var orders = OrderSubmit.fromOrder(map);
     orders.index = deletedIndex;
-    return Container();
+    return MyOrderItems(
+      model: orders,
+    );
   }
 }

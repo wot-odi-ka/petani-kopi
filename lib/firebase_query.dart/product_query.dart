@@ -349,11 +349,12 @@ class ProductQuery {
         .snapshots();
   }
 
-  static getOutcomingOrders(Users user) {
+  static getOutcomingOrders(Users user, String status) {
     return FirebaseFirestore.instance
         .collection(Col.order)
         .where('userId', isEqualTo: user.userId)
         .where('orderType', isEqualTo: Const.orderOutcoming)
+        .where('processStatus', isEqualTo: status)
         .snapshots();
   }
 
@@ -365,6 +366,19 @@ class ProductQuery {
         .then((value) async {
       for (var element in value.docs) {
         await element.reference.update({'processStatus': map['processStatus']});
+      }
+    });
+  }
+
+  static deleteOrder(Map<String, dynamic> map) async {
+    await FirebaseFirestore.instance
+        .collection(Col.order)
+        .where('userId', isEqualTo: map['userId'])
+        .where('orderId', isEqualTo: map['orderId'])
+        .get()
+        .then((value) async {
+      for (var element in value.docs) {
+        await element.reference.delete();
       }
     });
   }

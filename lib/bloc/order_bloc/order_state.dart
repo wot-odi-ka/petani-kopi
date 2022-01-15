@@ -8,6 +8,18 @@ class InitGetIncomingLoading extends OrderState {}
 
 class InitGetOutcomingLoading extends OrderState {}
 
+class OrderDeleting extends OrderState {
+  final int index;
+
+  OrderDeleting(this.index);
+}
+
+class OrderDeleted extends OrderState {
+  final int index;
+
+  OrderDeleted(this.index);
+}
+
 class IncomingUpdating extends OrderState {
   final int index;
 

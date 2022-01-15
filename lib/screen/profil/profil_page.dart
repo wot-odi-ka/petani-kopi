@@ -211,7 +211,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                             Card(
                               elevation: 5,
                               child: ListTile(
-                                onTap: () => Jump.to(Pages.myOrder),
+                                onTap: () => Jump.to(Pages.myOrderPage),
                                 leading: const Icon(
                                   IconlyLight.buy,
                                   color: mainColor,

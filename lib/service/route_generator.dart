@@ -10,6 +10,7 @@ import 'package:petani_kopi/helper/page.dart';
 import 'package:petani_kopi/screen/home/home_page.dart';
 import 'package:petani_kopi/screen/incoming_screen/incoming_page.dart';
 import 'package:petani_kopi/screen/login/login_main.dart';
+import 'package:petani_kopi/screen/myorder_page/myorder_page.dart';
 import 'package:petani_kopi/screen/payment_screen/payment_page.dart';
 import 'package:petani_kopi/screen/profil/edit_profile.dart';
 import 'package:petani_kopi/screen/profil/profil_page.dart';
@@ -88,6 +89,10 @@ class RouteGenerator {
         case Pages.incomingOrder:
           return CupertinoPageRoute(
             builder: (_) => const IncomingOrderPage(),
+          );
+        case Pages.myOrderPage:
+          return CupertinoPageRoute(
+            builder: (_) => const MyOrderPages(),
           );
         default:
           return CupertinoPageRoute(

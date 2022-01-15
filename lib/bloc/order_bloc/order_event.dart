@@ -16,3 +16,9 @@ class IncomingOrderUpdateStatus extends OrderEvent {
 
   IncomingOrderUpdateStatus(this.order);
 }
+
+class DeleteOrderEvent extends OrderEvent {
+  final OrderSubmit order;
+
+  DeleteOrderEvent(this.order);
+}
