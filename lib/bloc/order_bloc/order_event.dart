@@ -1,3 +1,4 @@
+import 'package:petani_kopi/model/order.dart';
 import 'package:petani_kopi/model/order_model.dart';
 
 class OrderEvent {}
@@ -11,7 +12,7 @@ class InitGetOutComingOrder extends OrderEvent {
 }
 
 class IncomingOrderUpdateStatus extends OrderEvent {
-  final Order order;
+  final OrderSubmit order;
 
   IncomingOrderUpdateStatus(this.order);
 }

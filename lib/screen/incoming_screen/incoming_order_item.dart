@@ -179,7 +179,7 @@ class _IncomingOrderItem2State extends State<IncomingOrderItem2> {
                           ),
                           onChange: (v) {
                             widget.model.processStatus = v;
-                            // bloc(IncomingOrderUpdateStatus(widget.model));
+                            bloc(IncomingOrderUpdateStatus(widget.model));
                           },
                         ),
                       ),

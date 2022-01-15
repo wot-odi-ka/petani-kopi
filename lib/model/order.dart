@@ -3,7 +3,8 @@ import 'package:petani_kopi/model/product.dart';
 
 class OrderSubmit {
   String? userId;
-  String? orderId;
+  String? incomingId;
+  String? outcomingId;
   String? userName;
   String? userImage;
   String? userImageHash;
@@ -19,7 +20,8 @@ class OrderSubmit {
 
   OrderSubmit({
     this.userId,
-    this.orderId,
+    this.incomingId,
+    this.outcomingId,
     this.userImage,
     this.userImageHash,
     this.userLocation,
@@ -67,7 +69,8 @@ class OrderSubmit {
 
   OrderSubmit.fromOrder(Map<String, dynamic> json) {
     userId = json['userId'];
-    orderId = json['orderId'];
+    incomingId = json['incomingId'];
+    outcomingId = json['outcomingId'];
     userName = json['userName'];
     userImage = json['userImage'];
     userImageHash = json['userImageHash'];
@@ -101,7 +104,8 @@ class OrderSubmit {
 
   Map<String, dynamic> updateProcess() {
     Map<String, dynamic> map = {};
-    map["orderId"] = orderId;
+    map["incomingId"] = incomingId;
+    map["outcomingId"] = outcomingId;
     map['processStatus'] = processStatus;
     return map;
   }

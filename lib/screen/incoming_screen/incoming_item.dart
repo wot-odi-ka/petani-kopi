@@ -178,7 +178,7 @@ class _IncomingOrderItemState extends State<IncomingOrderItem> {
                           ),
                           onChange: (v) {
                             widget.model.userStatus = v;
-                            bloc(IncomingOrderUpdateStatus(widget.model));
+                            // bloc(IncomingOrderUpdateStatus(widget.model));
                           },
                         ),
                       ),

@@ -326,13 +326,19 @@ class ProductQuery {
         .update({'userStatus': order.userStatus}).catchError((e) => throw e);
   }
 
-  static uploadOrder(OrderSubmit order) async {
-    await FirebaseFirestore.instance
+  static uploadOrder(OrderSubmit incoming, OrderSubmit outcoming) async {
+    DocumentReference<Map<String, dynamic>> inOrder = await FirebaseFirestore
+        .instance
         .collection(Col.order)
-        .add(order.upload())
-        .then((value) {
-      value.update({'orderId': value.id});
-    });
+        .add(incoming.upload());
+
+    DocumentReference<Map<String, dynamic>> outOrder = await FirebaseFirestore
+        .instance
+        .collection(Col.order)
+        .add(incoming.upload());
+
+    inOrder.update({'incomingId': inOrder.id, 'outcomingId': outOrder.id});
+    outOrder.update({'incomingId': inOrder.id, 'outcomingId': outOrder.id});
   }
 
   static getIncomingOrders(Users user) {
@@ -351,10 +357,32 @@ class ProductQuery {
         .snapshots();
   }
 
-  static updateOrder(Map<String, String> map) {
+  static updateOrderProcess(Map<String, dynamic> map) async {
+    await FirebaseFirestore.instance
+        .collection(Col.order)
+        .where('incomingId', isEqualTo: map['incomingId'])
+        .get()
+        .then((value) async {
+      for (var element in value.docs) {
+        await element.reference.update({'processStatus': map['processStatus']});
+      }
+    });
+
+    await FirebaseFirestore.instance
+        .collection(Col.order)
+        .where('outcomingId', isEqualTo: map['outcomingId'])
+        .get()
+        .then((value) async {
+      for (var element in value.docs) {
+        await element.reference.update({'processStatus': map['processStatus']});
+      }
+    });
+  }
+
+  static outcomingUpdate(Map<String, dynamic> map) {
     return FirebaseFirestore.instance
         .collection(Col.order)
-        .where('orderId', isEqualTo: map['orderId'])
+        .where('outcomingId', isEqualTo: map['outcomingId'])
         .get()
         .then((value) async {
       for (var element in value.docs) {

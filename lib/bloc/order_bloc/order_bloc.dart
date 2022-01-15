@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petani_kopi/bloc/order_bloc/order_event.dart';
 import 'package:petani_kopi/bloc/order_bloc/order_state.dart';
 import 'package:petani_kopi/firebase_query.dart/product_query.dart';
+import 'package:petani_kopi/model/order.dart';
 import 'package:petani_kopi/model/order_model.dart';
 import 'package:petani_kopi/model/users.dart';
 import 'package:petani_kopi/service/database.dart';
@@ -27,7 +28,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         emit(InitGetOutcomingLoaded(orderStream));
       } else if (event is IncomingOrderUpdateStatus) {
         emit(IncomingUpdating(event.order.index ?? 0));
-        await updateInOut(event.order);
+        await updateOrder(event.order);
         emit(IncomingUpdated(event.order.index ?? 0));
       }
     } catch (e) {
@@ -50,5 +51,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   Future<void> updateInOut(Order order) async {
     await ProductQuery.updateIncomingOrder(user, order);
     await ProductQuery.updateOutcomingOrder(order);
+  }
+
+  Future<void> updateOrder(OrderSubmit order) async {
+    await ProductQuery.updateOrderProcess(order.updateProcess());
   }
 }

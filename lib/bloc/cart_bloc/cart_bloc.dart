@@ -107,8 +107,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         json: model.toOrder(),
         userMap: user.toMap(),
       );
-      await ProductQuery.uploadOrder(outcoming);
-      await ProductQuery.uploadOrder(incoming);
+      await ProductQuery.uploadOrder(incoming, outcoming);
     } else {
       throw 'No Receipt';
     }
