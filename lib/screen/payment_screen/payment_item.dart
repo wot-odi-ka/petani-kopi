@@ -75,6 +75,9 @@ class _PaymentListBodyState extends State<PaymentListBody> {
                                   fontWeight: FontWeight.w800,
                                 ),
                               ),
+                              const SizedBox(
+                                height: 4,
+                              ),
                               Text(
                                 widget.model.shopLocation ?? '',
                                 style: const TextStyle(
@@ -82,6 +85,25 @@ class _PaymentListBodyState extends State<PaymentListBody> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                 ),
+                              ),
+                              Text(
+                                widget.model.shopRekening ?? '',
+                                style: const TextStyle(
+                                  color: dashboardColor,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Text(
+                                widget.model.shopNoRekening ?? '',
+                                style: const TextStyle(
+                                  color: dashboardColor,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 4,
                               ),
                               Text(
                                 CartUtils.countTotal(widget.model.list!),

@@ -10,6 +10,8 @@ class CartModel {
   String? shopImage;
   String? shopImageHash;
   String? shopLocation;
+  String? shopRekening;
+  String? shopNoRekening;
   List<Product>? list;
 
   //helper
@@ -33,6 +35,8 @@ class CartModel {
     this.receiptFile,
     this.receiptHash,
     this.receiptUrl,
+    this.shopNoRekening,
+    this.shopRekening,
   });
 
   CartModel.fromProduct(Map<String, dynamic> json) {
@@ -41,6 +45,8 @@ class CartModel {
     shopImage = json['userImage'];
     shopImageHash = json['userImageHash'];
     shopLocation = json['userCity'];
+    shopNoRekening = json['noRekening'];
+    shopRekening = json['rekening'];
   }
 
   Map<String, dynamic> toMap() {
@@ -50,6 +56,8 @@ class CartModel {
     map["shopImage"] = shopImage;
     map["shopImageHash"] = shopImageHash;
     map["shopLocation"] = shopLocation;
+    map["shopNoRekening"] = shopNoRekening;
+    map["shopRekening"] = shopRekening;
     if (list != null) {
       map['cartList'] = list!.map((e) => e.toCartList()).toList();
     }
@@ -63,6 +71,8 @@ class CartModel {
     map["shopImage"] = shopImage;
     map["shopImageHash"] = shopImageHash;
     map["shopLocation"] = shopLocation;
+    map["shopNoRekening"] = shopNoRekening;
+    map["shopRekening"] = shopRekening;
     map["receiptUrl"] = receiptUrl;
     map["receiptHash"] = receiptHash;
     if (list != null) {
@@ -77,6 +87,8 @@ class CartModel {
     shopImage = json['shopImage'];
     shopImageHash = json['shopImageHash'];
     shopLocation = json['shopLocation'];
+    shopRekening = json['shopRekening'];
+    shopNoRekening = json['shopNoRekening'];
     isExpand = false;
     isChecked = false;
     index = 0;
