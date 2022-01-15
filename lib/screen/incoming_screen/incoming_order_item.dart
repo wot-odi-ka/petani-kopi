@@ -211,13 +211,13 @@ class _IncomingOrderItem2State extends State<IncomingOrderItem2> {
             ),
           ),
         ),
-        deleteBuilder(
-          index: widget.model.index ?? 0,
-          child: Visibility(
-            visible: widget.model.processStatus == Const.done,
-            child: Positioned(
-              right: 2,
-              top: 2,
+        Visibility(
+          visible: widget.model.processStatus == Const.done,
+          child: Positioned(
+            right: -1,
+            top: -1,
+            child: deleteBuilder(
+              index: widget.model.index ?? 0,
               child: AvatarGlow(
                 glowColor: dashboardColor,
                 endRadius: 30,
@@ -229,13 +229,14 @@ class _IncomingOrderItem2State extends State<IncomingOrderItem2> {
                 ),
                 child: CircleAvatar(
                   backgroundColor: oldCoffee,
+                  radius: 16,
                   child: IconButton(
                     alignment: Alignment.center,
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                     onPressed: () => bloc(DeleteOrderEvent(widget.model)),
                     icon: const Icon(
-                      IconlyLight.buy,
+                      Icons.close,
                       color: Colors.white,
                     ),
                   ),
