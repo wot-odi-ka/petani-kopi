@@ -3,8 +3,7 @@ import 'package:petani_kopi/model/product.dart';
 
 class OrderSubmit {
   String? userId;
-  String? incomingId;
-  String? outcomingId;
+  String? orderId;
   String? userName;
   String? userImage;
   String? userImageHash;
@@ -20,8 +19,7 @@ class OrderSubmit {
 
   OrderSubmit({
     this.userId,
-    this.incomingId,
-    this.outcomingId,
+    this.orderId,
     this.userImage,
     this.userImageHash,
     this.userLocation,
@@ -34,7 +32,7 @@ class OrderSubmit {
     this.index,
   });
 
-  OrderSubmit.outcoming(Map<String, dynamic> json) {
+  OrderSubmit.incoming(Map<String, dynamic> json) {
     userId = json['shopId'];
     userName = json['shopName'];
     userImage = json['shopImage'];
@@ -42,14 +40,14 @@ class OrderSubmit {
     userLocation = json['shopLocation'];
     userReceipt = json['receiptUrl'];
     userHashReceipt = json['receiptHash'];
-    orderType = Const.orderOutcoming;
+    orderType = Const.orderIncoming;
     list = [];
     json['cartList'].forEach((item) {
       list!.add(Product.fromCartList(item));
     });
   }
 
-  OrderSubmit.incoming({
+  OrderSubmit.outcoming({
     required Map<String, dynamic> json,
     required Map<String, dynamic> userMap,
   }) {
@@ -60,7 +58,7 @@ class OrderSubmit {
     userLocation = userMap['userCity'];
     userReceipt = json['receiptUrl'];
     userHashReceipt = json['receiptHash'];
-    orderType = Const.orderIncoming;
+    orderType = Const.orderOutcoming;
     list = [];
     json['cartList'].forEach((item) {
       list!.add(Product.fromCartList(item));
@@ -69,8 +67,7 @@ class OrderSubmit {
 
   OrderSubmit.fromOrder(Map<String, dynamic> json) {
     userId = json['userId'];
-    incomingId = json['incomingId'];
-    outcomingId = json['outcomingId'];
+    orderId = json['orderId'];
     userName = json['userName'];
     userImage = json['userImage'];
     userImageHash = json['userImageHash'];
@@ -104,8 +101,7 @@ class OrderSubmit {
 
   Map<String, dynamic> updateProcess() {
     Map<String, dynamic> map = {};
-    map["incomingId"] = incomingId;
-    map["outcomingId"] = outcomingId;
+    map["orderId"] = orderId;
     map['processStatus'] = processStatus;
     return map;
   }

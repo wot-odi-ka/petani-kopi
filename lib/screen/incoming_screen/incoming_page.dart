@@ -129,7 +129,7 @@ class _IncomingOrderBodyState extends State<IncomingOrderBody> {
                                   itemCount: snapshot.data.docs.length,
                                   itemBuilder: (context, index) {
                                     var query = snapshot.data.docs[index];
-                                    return buildTile(
+                                    return buildTile2(
                                       query as DocumentSnapshot,
                                       deletedIndex: index,
                                     );

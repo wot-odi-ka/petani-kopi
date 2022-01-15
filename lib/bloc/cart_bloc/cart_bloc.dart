@@ -102,8 +102,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   Future<void> uploadOrders(CartModel model) async {
     if (model.receiptFile != null) {
       model.receiptUrl = await singleUpload(model.receiptFile!);
-      var outcoming = OrderSubmit.outcoming(model.toOrder());
-      var incoming = OrderSubmit.incoming(
+      var incoming = OrderSubmit.incoming(model.toOrder());
+      var outcoming = OrderSubmit.outcoming(
         json: model.toOrder(),
         userMap: user.toMap(),
       );

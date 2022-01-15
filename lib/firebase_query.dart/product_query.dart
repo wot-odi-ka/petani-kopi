@@ -335,10 +335,10 @@ class ProductQuery {
     DocumentReference<Map<String, dynamic>> outOrder = await FirebaseFirestore
         .instance
         .collection(Col.order)
-        .add(incoming.upload());
+        .add(outcoming.upload());
 
-    inOrder.update({'incomingId': inOrder.id, 'outcomingId': outOrder.id});
-    outOrder.update({'incomingId': inOrder.id, 'outcomingId': outOrder.id});
+    inOrder.update({'orderId': inOrder.id});
+    outOrder.update({'orderId': inOrder.id});
   }
 
   static getIncomingOrders(Users user) {
@@ -360,17 +360,7 @@ class ProductQuery {
   static updateOrderProcess(Map<String, dynamic> map) async {
     await FirebaseFirestore.instance
         .collection(Col.order)
-        .where('incomingId', isEqualTo: map['incomingId'])
-        .get()
-        .then((value) async {
-      for (var element in value.docs) {
-        await element.reference.update({'processStatus': map['processStatus']});
-      }
-    });
-
-    await FirebaseFirestore.instance
-        .collection(Col.order)
-        .where('outcomingId', isEqualTo: map['outcomingId'])
+        .where('orderId', isEqualTo: map['orderId'])
         .get()
         .then((value) async {
       for (var element in value.docs) {
@@ -379,15 +369,15 @@ class ProductQuery {
     });
   }
 
-  static outcomingUpdate(Map<String, dynamic> map) {
-    return FirebaseFirestore.instance
-        .collection(Col.order)
-        .where('outcomingId', isEqualTo: map['outcomingId'])
-        .get()
-        .then((value) async {
-      for (var element in value.docs) {
-        await element.reference.update({'processStatus': map['processStatus']});
-      }
-    });
-  }
+  // static outcomingUpdate(Map<String, dynamic> map) {
+  //   return FirebaseFirestore.instance
+  //       .collection(Col.order)
+  //       .where('outcomingId', isEqualTo: map['outcomingId'])
+  //       .get()
+  //       .then((value) async {
+  //     for (var element in value.docs) {
+  //       await element.reference.update({'processStatus': map['processStatus']});
+  //     }
+  //   });
+  // }
 }
