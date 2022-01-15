@@ -32,7 +32,7 @@ class OrderSubmit {
     this.index,
   });
 
-  OrderSubmit.incoming(Map<String, dynamic> json) {
+  OrderSubmit.outcoming(Map<String, dynamic> json) {
     userId = json['shopId'];
     userName = json['shopName'];
     userImage = json['shopImage'];
@@ -40,14 +40,14 @@ class OrderSubmit {
     userLocation = json['shopLocation'];
     userReceipt = json['receiptUrl'];
     userHashReceipt = json['receiptHash'];
-    orderType = Const.orderIncoming;
+    orderType = Const.orderOutcoming;
     list = [];
     json['cartList'].forEach((item) {
       list!.add(Product.fromCartList(item));
     });
   }
 
-  OrderSubmit.outcoming({
+  OrderSubmit.incoming({
     required Map<String, dynamic> json,
     required Map<String, dynamic> userMap,
   }) {
@@ -58,7 +58,7 @@ class OrderSubmit {
     userLocation = userMap['userCity'];
     userReceipt = json['receiptUrl'];
     userHashReceipt = json['receiptHash'];
-    orderType = Const.orderOutcoming;
+    orderType = Const.orderIncoming;
     list = [];
     json['cartList'].forEach((item) {
       list!.add(Product.fromCartList(item));
