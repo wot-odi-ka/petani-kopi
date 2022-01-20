@@ -245,7 +245,7 @@ class _EditProfileBodyState extends State<EditProfileBody> {
                                       user.userMail ?? '',
                                       style: const TextStyle(
                                         color: backgroundColor,
-                                        fontSize: 18,
+                                        fontSize: 10,
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),

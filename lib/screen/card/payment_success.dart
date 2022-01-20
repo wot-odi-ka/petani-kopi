@@ -44,9 +44,7 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                 height: 140.0,
               ),
               MaterialButton(
-                onPressed: () {
-                  Jump.to(Pages.homePage);
-                },
+                onPressed: () => Jump.to(Pages.homePage),
                 height: 50,
                 elevation: 0,
                 splashColor: const Color(0xFF0d1015),

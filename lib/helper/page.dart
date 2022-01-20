@@ -1,3 +1,5 @@
+import 'package:petani_kopi/screen/login/verification_page.dart';
+
 class Pages {
   static const loginScreen = 'loginScreen';
   static const homePage = 'homePage';
@@ -17,4 +19,6 @@ class Pages {
   static const paymentPage = 'paymentPage';
   static const incomingOrder = 'incomingOrder';
   static const myOrderPage = 'myOrderPage';
+  static const forgotPassword = 'forgotPassword';
+  static const verifyEmail = 'verifyEmail';
 }

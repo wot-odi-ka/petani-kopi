@@ -5,3 +5,9 @@ class LoginOnSubmit extends LoginEvent {
 
   LoginOnSubmit(this.data);
 }
+
+class ForgotPassOnSubmit extends LoginEvent {
+  final Map<String, dynamic> data;
+
+  ForgotPassOnSubmit(this.data);
+}

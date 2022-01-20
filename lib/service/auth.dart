@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
+import 'package:petani_kopi/screen/login/login_main.dart';
 
 import 'database.dart';
 
@@ -28,7 +30,9 @@ class Auth {
   static resetPass({required String email}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     try {
-      return await auth.sendPasswordResetEmail(email: email);
+      return await auth
+          .sendPasswordResetEmail(email: email)
+          .then((value) => const LoginMainPage());
     } catch (e) {
       rethrow;
     }

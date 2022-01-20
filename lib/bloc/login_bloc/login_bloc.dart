@@ -18,6 +18,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(LoginOnProgress());
         await submitting(event.data);
         emit(LoginSuccess());
+      } else if (event is ForgotPassOnSubmit) {
+        emit(ForgotPassOnProcess());
+        await submitForgotPass(event.data);
+        emit(ForgotPassSucsess());
       }
     } catch (e) {
       emit(LoginFailed(e.toString()));
@@ -31,6 +35,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     );
     Users result = await LogQuery.getUsersById(id);
     await DB.saveUser(result);
+  }
+
+  submitForgotPass(map) async {
+    var mail = await Auth.resetPass(email: map[Const.email]);
   }
 
   // getFriendList(String id) async {

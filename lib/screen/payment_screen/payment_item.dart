@@ -7,9 +7,11 @@ import 'package:petani_kopi/common/common_animated_order.dart';
 import 'package:petani_kopi/common/common_detail_animation.dart';
 import 'package:petani_kopi/common/common_expanded.dart';
 import 'package:petani_kopi/helper/app_scaler.dart';
+import 'package:petani_kopi/helper/page.dart';
 import 'package:petani_kopi/model/cart_model.dart';
 import 'package:petani_kopi/model/product.dart';
 import 'package:petani_kopi/screen/dashboard/dashboard_page.dart';
+import 'package:petani_kopi/service/jump.dart';
 import 'package:petani_kopi/theme/colors.dart';
 
 class PaymentListBody extends StatefulWidget {

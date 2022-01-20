@@ -85,7 +85,12 @@ class _LoginBodyState extends State<LoginBody> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Forgot Password?', style: loginTextStyle()),
+                    TextButton(
+                      onPressed: () {
+                        Jump.to(Pages.forgotPassword);
+                      },
+                      child: Text('Forgot Password?', style: loginTextStyle()),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 30),

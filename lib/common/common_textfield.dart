@@ -56,6 +56,60 @@ class CommonTextfield extends StatelessWidget {
   }
 }
 
+class CommonTextfieldForgotPass extends StatelessWidget {
+  final TextEditingController? controller;
+  final Function(String?)? validator;
+  final Function(String?)? onSubmit;
+  final IconData prefixIcon;
+  final String hint;
+  final FocusNode? node;
+  const CommonTextfieldForgotPass({
+    Key? key,
+    this.controller,
+    this.validator,
+    this.prefixIcon = Icons.mail,
+    this.hint = '',
+    this.onSubmit,
+    this.node,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      focusNode: node ?? FocusNode(),
+      controller: controller ?? TextEditingController(),
+      cursorColor: mainColor,
+      validator: (val) => validator!(val),
+      onFieldSubmitted: (_) => onSubmit!(_),
+      decoration: InputDecoration(
+        prefixIcon: Icon(prefixIcon, color: mainColor),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: mainColor.withOpacity(0.3)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
+        ),
+        contentPadding: const EdgeInsets.all(10),
+        hintText: hint,
+        hintStyle: const TextStyle(
+          fontSize: 14,
+          color: iconColor,
+        ),
+      ),
+    );
+  }
+}
+
 class CommonTextPass extends StatefulWidget {
   final TextEditingController? controller;
   final Function(String?)? validator;

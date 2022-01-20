@@ -7,6 +7,7 @@ import 'package:petani_kopi/bloc/register_bloc/register_bloc.dart';
 import 'package:petani_kopi/bloc/register_bloc/register_event.dart';
 import 'package:petani_kopi/bloc/register_bloc/register_state.dart';
 import 'package:petani_kopi/bloc/login_bloc/login_state.dart';
+import 'package:petani_kopi/common/commonSingUp.dart';
 import 'package:petani_kopi/common/common_button.dart';
 import 'package:petani_kopi/common/common_shimmer.dart';
 import 'package:petani_kopi/common/common_textfield.dart';
@@ -15,6 +16,7 @@ import 'package:petani_kopi/helper/extension.dart';
 import 'package:petani_kopi/helper/page.dart';
 import 'package:petani_kopi/helper/snack_bar.dart';
 import 'package:petani_kopi/model/users.dart';
+import 'package:petani_kopi/screen/login/login_main.dart';
 import 'package:petani_kopi/service/jump.dart';
 import 'package:petani_kopi/theme/colors.dart';
 import 'package:petani_kopi/theme/login_style.dart';
@@ -101,7 +103,7 @@ class _RegisterBodyState extends State<RegisterBody> {
         BlocListener<LoginBloc, LoginState>(
           listener: (context, state) {
             if (state is LoginSuccess) {
-              Jump.replace(Pages.homePage);
+              Jump.replace(Pages.verifyEmail);
             }
             if (state is LoginFailed) {
               context.fail(state.error);

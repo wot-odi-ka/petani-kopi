@@ -275,7 +275,7 @@ class _UploadProductBodyState extends State<UploadProductBody>
                                       user.userMail ?? '',
                                       style: const TextStyle(
                                         color: backgroundColor,
-                                        fontSize: 18,
+                                        fontSize: 10,
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
